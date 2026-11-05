@@ -19,7 +19,7 @@
 
 | | |
 |---|---|
-| **Último avance** | [2026-11-05 · ¿Se puede tratar sin operar?](docs/avances/2026-11-05-tratar-sin-operar.md): ctDNA mensual + ablación guiada controla 24/24 pacientes simuladas destruyendo 8 células sanas frente a 324 de la cirugía |
+| **Último avance** | [2026-11-05 · ¿Se puede tratar sin operar?](docs/avances/2026-11-05-tratar-sin-operar.md): ctDNA mensual + ablación guiada controla 24/24 pacientes simuladas; con imagen realista, 22 de 24 no necesitan que les toquen la mama |
 | **Todos los avances** | [`docs/avances/`](docs/avances/) |
 | **Bitácora completa** (hallazgos, errores, expectativas fallidas) | [`docs/BITACORA.md`](docs/BITACORA.md) |
 | **Informes técnicos** | [`docs/informes/`](docs/informes/) |

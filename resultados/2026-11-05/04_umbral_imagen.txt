@@ -1,0 +1,21 @@
+SIN CIRUGÍA · luminal · tratamiento día 120 · seguimiento a 500 d · 24 semillas · control = <100 peligrosas
+
+brazo                                     mediana  control  sanas dest.   por semilla
+IMAGEN≥5: ctDNA + guiada                        3    24/24            0   [2, 5, 3, 4, 3, 46, 3, 2, 0, 7, 4, 0, 0, 3, 27, 7, 2, 0, 5, 0, 9, 9, 2, 20]
+                                        sin tocar nunca la mama: 18/24 → desenlace [2, 5, 3, 4, 3, 2, 0, 7, 4, 0, 0, 3, 7, 5, 0, 9, 9, 2]
+                                        ctDNA positivo pero nada visible (solo arsenal): 12/24
+                                        rescatadas: días [180, 180, 180, 180, 180, 180, 210, 210, 210, 240, 240, 270, 270, 300, 390, 390, 420, 450]
+IMAGEN≥25: ctDNA + guiada                       4    24/24            0   [2, 5, 3, 4, 3, 70, 3, 2, 0, 7, 4, 0, 0, 3, 42, 7, 2, 11, 5, 0, 9, 9, 2, 8]
+                                        sin tocar nunca la mama: 20/24 → desenlace [2, 5, 3, 4, 3, 2, 0, 7, 4, 0, 0, 3, 7, 11, 5, 0, 9, 9, 2, 8]
+                                        ctDNA positivo pero nada visible (solo arsenal): 14/24
+                                        rescatadas: días [180, 180, 180, 180, 180, 180, 210, 210, 210, 240, 240, 270, 270, 300, 390, 390, 420, 450]
+IMAGEN≥100: ctDNA + guiada                      4    24/24            0   [2, 5, 3, 4, 3, 70, 3, 2, 0, 7, 4, 0, 0, 3, 46, 7, 8, 11, 5, 0, 9, 9, 2, 8]
+                                        sin tocar nunca la mama: 22/24 → desenlace [2, 5, 3, 4, 3, 3, 2, 0, 7, 4, 0, 0, 3, 7, 8, 11, 5, 0, 9, 9, 2, 8]
+                                        ctDNA positivo pero nada visible (solo arsenal): 16/24
+                                        rescatadas: días [180, 180, 180, 180, 180, 180, 210, 210, 210, 240, 240, 270, 270, 300, 390, 390, 420, 450]
+IMAGEN ciega: ctDNA → solo arsenal              4    23/24            0   [2, 5, 3, 4, 3, 9547, 3, 2, 0, 7, 4, 0, 0, 3, 42, 7, 8, 11, 5, 0, 9, 9, 2, 8]
+                                        sin tocar nunca la mama: 24/24 → desenlace [2, 5, 3, 4, 3, 9547, 3, 2, 0, 7, 4, 0, 0, 3, 42, 7, 8, 11, 5, 0, 9, 9, 2, 8]
+                                        ctDNA positivo pero nada visible (solo arsenal): 18/24
+                                        rescatadas: días [180, 180, 180, 180, 180, 180, 210, 210, 210, 240, 240, 270, 270, 300, 390, 390, 420, 450]
+
+(3439 s)

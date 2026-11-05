@@ -9,3 +9,7 @@ ctDNA mensual + ablación guiada,24,3,14,2,24,acelerada,03_guiada_tasa_realista.
 REALISTA: solo arsenal,23,4,0,24,24,realista,03_guiada_tasa_realista.txt
 REALISTA: ctDNA + ablación en disco,24,17,285,6,24,realista,03_guiada_tasa_realista.txt
 REALISTA: ctDNA + ablación guiada,24,12,8,6,24,realista,03_guiada_tasa_realista.txt
+IMAGEN ≥5 células: ctDNA + guiada,24,5,0,18,24,realista,04_umbral_imagen.txt
+IMAGEN ≥25 células: ctDNA + guiada,24,4,0,20,24,realista,04_umbral_imagen.txt
+IMAGEN ≥100 células: ctDNA + guiada,24,4,0,22,24,realista,04_umbral_imagen.txt
+IMAGEN ciega: ctDNA → solo arsenal,23,4,0,24,24,realista,04_umbral_imagen.txt

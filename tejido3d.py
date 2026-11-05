@@ -532,6 +532,100 @@ class Simulacion3D:
         # `tratar_matriz`. Solo tiene presión y geometría. degradar_matriz aquí se limita
         # a retirar fibroblastos.
 
+    # ------------------------------------------------------------------ sin bisturí
+    # Mismas reglas que tejido.py (ablacionar, ctdna, focos_carcinoma), en 3D.
+    # Estudio: docs/avances/2026-11-05-tratar-sin-operar.md
+    def es_carcinoma(self, pos, c: Celula) -> bool:
+        """El mismo criterio que 'peligrosas' en resumen(): in situ, invasivo o reina."""
+        return (c.tipo == LUMINAL and not c.necrosis and c.n_drivers > 0
+                and (c.madre or c.anoikis_res or self.zona[pos] in (MIO, ESTROMA)))
+
+    def focos_carcinoma(self) -> list[list]:
+        """Componentes conexas (26 vecinas) de células de carcinoma."""
+        celdas = {q for q, c in self.celulas.items() if self.es_carcinoma(q, c)}
+        focos, vistos = [], set()
+        for q in celdas:
+            if q in vistos:
+                continue
+            foco, pila = [], [q]
+            vistos.add(q)
+            while pila:
+                z, y, x = pila.pop()
+                foco.append((z, y, x))
+                for dz, dy, dx in VECINOS:
+                    v = (z + dz, y + dy, x + dx)
+                    if v in celdas and v not in vistos:
+                        vistos.add(v)
+                        pila.append(v)
+            focos.append(foco)
+        return focos
+
+    def ablacionar(self, cobertura: float = 0.95, margen: int = 2, borde: int = 1,
+                   supervivencia_borde: float = 0.3, guiada: bool = True,
+                   umbral_visible: int = 1) -> dict:
+        """Ablación en 3D. guiada=True: bola de radio `margen` alrededor de cada célula de
+        carcinoma de los focos visibles (≥ umbral_visible células). guiada=False: una
+        esfera alrededor del centroide de todas las células con driver (el «disco»).
+        Las luminales destruidas quedan como necrosis; las mioepiteliales y los
+        fibroblastos se retiran (en 3D _vivir no limpia su necrosis)."""
+        if guiada:
+            focos = self.focos_carcinoma()
+            dianas = [q for f in focos if len(f) >= umbral_visible for q in f]
+            vistos = sum(len(f) >= umbral_visible for f in focos)
+            radio_bola = margen
+        else:
+            dianas = [q for q, c in self.celulas.items()
+                      if c.tipo == LUMINAL and c.n_drivers and not c.necrosis]
+            vistos = 1 if dianas else 0
+        if not dianas:
+            return dict(destruidas=0, sanas=0, residuo=0, focos_vistos=0)
+        dmin: dict = {}
+        if guiada:
+            ofs = [(dz, dy, dx) for dz in range(-margen, margen + 1)
+                   for dy in range(-margen, margen + 1) for dx in range(-margen, margen + 1)
+                   if (dz * dz + dy * dy + dx * dx) ** 0.5 <= radio_bola]
+            for (z, y, x) in dianas:
+                for dz, dy, dx in ofs:
+                    q = (z + dz, y + dy, x + dx)
+                    d = (dz * dz + dy * dy + dx * dx) ** 0.5
+                    if d < dmin.get(q, 1e9):
+                        dmin[q] = d
+            limite = margen
+        else:
+            cz, cy, cx = (sum(q[i] for q in dianas) / len(dianas) for i in range(3))
+            dist = sorted(((q[0] - cz) ** 2 + (q[1] - cy) ** 2 + (q[2] - cx) ** 2) ** 0.5
+                          for q in dianas)
+            limite = dist[min(len(dist) - 1, int(len(dist) * cobertura))] + margen
+            for q in self.celulas:
+                d = ((q[0] - cz) ** 2 + (q[1] - cy) ** 2 + (q[2] - cx) ** 2) ** 0.5
+                if d <= limite:
+                    dmin[q] = d
+        destruidas = sanas = 0
+        for q, d in dmin.items():
+            c = self.celulas.get(q)
+            if c is None or c.necrosis:
+                continue
+            if d > limite - borde and self.rng.random() < supervivencia_borde:
+                continue
+            if c.tipo == LUMINAL and c.n_drivers:
+                destruidas += 1
+            else:
+                sanas += 1
+            if c.tipo == LUMINAL:
+                c.necrosis = 1
+            else:
+                del self.celulas[q]
+        residuo = sum(1 for q, c in self.celulas.items() if self.es_carcinoma(q, c))
+        return dict(destruidas=destruidas, sanas=sanas, residuo=residuo, focos_vistos=vistos)
+
+    def ctdna(self, fragmentos_por_celula: float, peso_necrosis: float = 3.0) -> dict:
+        vivas = sum(1 for q, c in self.celulas.items() if self.es_carcinoma(q, c))
+        muertas = sum(1 for c in self.celulas.values()
+                      if c.tipo == LUMINAL and c.n_drivers and c.necrosis)
+        lam = fragmentos_por_celula * (vivas + peso_necrosis * muertas)
+        n = int(np.random.default_rng(self.rng.getrandbits(32)).poisson(lam))
+        return dict(positiva=n > 0, fragmentos=n, esperado=lam, vivas=vivas)
+
     def degradar_matriz(self, fraccion: float = 0.25):
         quitados = 0
         for pos, c in list(self.celulas.items()):

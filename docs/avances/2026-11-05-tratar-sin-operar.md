@@ -6,10 +6,12 @@ bisturí** y con el menor daño posible al tejido sano, aprendiendo de lo que la
 ha publicado entre 2022 y 2026?
 
 **Respuesta corta (en el modelo).** Sí. **ctDNA mensual + ablación guiada por imagen**
-controla a las 24 pacientes simuladas, igual que la cirugía, y destruye una mediana de
-**8 células sanas frente a 324**. 6 de las 24 no necesitan que les toquen la mama nunca.
-La condición: que la imagen localice focos muy pequeños, una suposición optimista que se
-está midiendo ahora mismo (ver [Pendiente](#pendiente)).
+controla a las 24 pacientes simuladas, igual que la cirugía. Y **no necesita ver lo
+invisible**: aunque la imagen solo detecte focos de ≥100 células, siguen controladas las
+24, **22 no necesitan nunca que les toquen la mama** y la mediana de tejido sano
+destruido es 0 (frente a 324 con la cirugía). El precio es que se cura menos del todo:
+la mayoría conviven con restos de 2-11 células que mantiene a raya la inmunidad
+(ver [Umbral de imagen](#umbral-de-imagen-la-prueba-de-realismo)).
 
 ![Resultados](../capturas/04_resultados_sin_cirugia.png)
 
@@ -112,9 +114,41 @@ actúa pronto sobre restos pequeños, que es lo que permite el ctDNA mensual.*
   ruido de fondo ni hematopoyesis clonal).
 - Los estudios clínicos que lo inspiran son series pequeñas (31 y 19 pacientes).
 
-## Pendiente
+## Umbral de imagen: la prueba de realismo
 
-**Umbral de imagen.** Repetir el mejor protocolo cuando la imagen solo ve focos de ≥5,
-≥25 o ≥100 células, o ninguno (ciega). Si el ctDNA da positivo y no se ve nada, se
-repite el arsenal sin tocar la mama, como se hace en la clínica ante una recaída
-molecular. En ejecución; se añadirá aquí.
+La ablación guiada suponía que la imagen ve focos de 1 célula ([issue #1](https://github.com/TheIsmael12/breast-cancer-abm/issues/1)).
+Aquí la imagen solo ve focos de **≥N células**. Si el ctDNA da positivo y no se ve
+nada, se repite el arsenal sin tocar la mama, como ante una recaída molecular en la
+clínica. Tasa realista tras tratar, las mismas 24 pacientes
+([salida](../../resultados/2026-11-05/04_umbral_imagen.txt)).
+
+| La imagen ve | Controladas | Erradicadas | Sanas destruidas (mediana) | Sin tocar la mama | ctDNA+ sin nada visible |
+|---|---|---|---|---|---|
+| todo (≥1) | 24/24 | 12 | 8 | 6 | 0 |
+| ≥5 células | 24/24 | 5 | 0 | 18 | 12 |
+| ≥25 células | 24/24 | 4 | 0 | 20 | 14 |
+| **≥100 células** | **24/24** | 4 | **0** | **22** | 16 |
+| nada (ciega) | 23/24 | 4 | 0 | 24 | 18 |
+
+**Lectura.**
+
+1. **El control no depende de ver focos diminutos.** De ≥5 a ≥100 células se siguen
+   controlando las 24, y cuanto peor es la imagen, menos se toca.
+2. **La ablación solo es necesaria para focos grandes y visibles.** El brazo ciego
+   (23/24) no mejora al arsenal solo (también 23/24 con tasa realista): repetir el
+   arsenal no añade nada medible. La paciente que falta (semilla 6, la del tumor de ~900
+   células) se rescata en cuanto la imagen ve su foco y se ablaciona. Es la lógica
+   clínica: lo visible se trata localmente; lo invisible se vigila y se trata por vía
+   sistémica.
+3. **Ver más cura más del todo, pero a costa de tejido.** Con imagen perfecta se
+   erradica a 12; con imagen realista, a 4-5. Las demás quedan con restos de 2-11
+   células que la memoria inmune contiene. Si ese «control» se sostiene a largo plazo
+   (como la enfermedad mínima residual latente) o acaba recayendo, el modelo no lo puede
+   decir: el seguimiento es de 380 días tras el tratamiento.
+
+## Siguiente paso
+
+**Llevarlo al 3D** (`sin_cirugia_3d.py`, criterio escrito en el propio script antes de
+ejecutar). En 2D todo el tumor está cerca de la superficie; en 3D las terapias se quedan
+en el borde ([capturas 05-06](../capturas/)). Si el protocolo aguanta en 3D, el
+resultado gana mucho peso.

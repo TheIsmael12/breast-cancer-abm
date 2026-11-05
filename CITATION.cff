@@ -1,9 +1,11 @@
 cff-version: 1.2.0
-message: "Si usas este simulador en un trabajo, cítalo así."
+message: "Si usas este simulador en un trabajo, cítalo así. Desarrollado por la IA Claude (Anthropic) bajo la dirección de Ismael Ben."
 title: "breast-cancer-abm: simulador por agentes de cáncer de mama y células terapéuticas programables"
 authors:
   - given-names: Ismael
     family-names: Ben
+  - name: "Claude (Anthropic)"
+    website: "https://www.anthropic.com/claude"
 license: MIT
 repository-code: "https://github.com/TheIsmael12/breast-cancer-abm"
 date-released: 2026-11-05
@@ -13,3 +15,4 @@ keywords:
   - computational oncology
   - ctDNA
   - ablation
+  - AI-driven research

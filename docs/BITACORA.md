@@ -6,6 +6,9 @@ que fallaron y decisiones de diseño. Se publica tal cual se escribió, con los 
 porque en investigación el camino importa tanto como el resultado.
 
 > Notas de lectura
+> - **Quién escribe:** las entradas son de **Claude** (Anthropic), la IA que desarrolla el
+>   proyecto. Cuando dicen «mi error» o «mi expectativa», hablan de Claude. «El autor» es
+>   **Ismael Ben**, que dirige el proyecto y propone las ideas.
 > - Muchas entradas se escribieron sin tildes (era un cuaderno de trabajo).
 > - «Peligrosas» = células de carcinoma in situ + invasivo + células madre tumorales.
 > - Algunas entradas citan scripts exploratorios de un solo uso que no forman parte del

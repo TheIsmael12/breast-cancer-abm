@@ -8,6 +8,15 @@
 > idea se mide con varias semillas, con criterios escritos antes de ejecutar y con los
 > errores propios documentados.
 
+> **Hecho con IA, y dicho claramente.** Este proyecto lo desarrolla **Claude** (modelo
+> Opus de [Anthropic](https://www.anthropic.com), a través de Claude Code): el código, la
+> búsqueda y lectura de literatura, el diseño y la ejecución de los experimentos, el
+> análisis y la documentación. Lo **dirige Ismael Ben**, que no es biólogo ni médico:
+> plantea las preguntas y las ideas que han marcado el rumbo (atacar a las células madre
+> tumorales, reconducir el oxígeno en vez de cortarlo, no usar quimioterapia, buscar
+> cómo no operar) y decide en cada bifurcación. Precisamente por eso la revisión de
+> personas expertas es tan valiosa: si ves un error biológico, [dilo](CONTRIBUTING.md).
+
 | | |
 |---|---|
 | **Último avance** | [2026-11-05 · ¿Se puede tratar sin operar?](docs/avances/2026-11-05-tratar-sin-operar.md): ctDNA mensual + ablación guiada controla 24/24 pacientes simuladas destruyendo 8 células sanas frente a 324 de la cirugía |

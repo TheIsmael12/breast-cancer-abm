@@ -4,6 +4,14 @@ Gracias por querer ayudar. Este es un proyecto de **investigación abierta**: lo
 falta no es código, sino **criterio biológico**. Si trabajas en oncología, biología
 celular, inmunología o modelado, tus correcciones valen oro.
 
+## Cómo se trabaja aquí
+
+El proyecto lo desarrolla una IA (Claude, de Anthropic) dirigida por una persona que no
+es del sector sanitario. Eso significa dos cosas: el trabajo es rápido y está muy
+documentado, pero **le falta la mirada de quien conoce la biología por dentro**. Las
+revisiones de los PR también se hacen con ayuda de Claude, y cualquier corrección con
+fuente se toma en serio aunque contradiga resultados ya publicados.
+
 ## Qué se busca
 
 | Tipo | Ejemplo | Cómo empezar |

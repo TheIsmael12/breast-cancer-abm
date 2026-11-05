@@ -1,0 +1,13 @@
+SIN CIRUGÍA · luminal · tratamiento día 120 · seguimiento a 500 d · 24 semillas · control = <100 peligrosas
+
+brazo                                     mediana  control  sanas dest.   por semilla
+nada                                         9948     0/24            0   [9948, 9987, 9888, 9999, 9881, 9998, 9888, 9954, 10000, 8065, 9851, 9875, 10037, 10041, 10017, 9417, 9924, 9989, 9847, 9886, 9932, 9974, 9947, 10041]
+solo arsenal (sin tocar)                       10    20/24            0   [9, 262, 454, 12, 16, 79, 7, 6, 2, 7, 4, 5, 4, 10, 38, 7, 10, 1672, 279, 3, 8, 14, 8, 13]
+cirugía + arsenal                               0    24/24          324   [0, 6, 0, 0, 0, 0, 0, 0, 7, 7, 0, 4, 8, 4, 0, 0, 0, 5, 3, 2, 0, 0, 12, 13]
+ablación + arsenal (borde letal)                0    24/24          324   [0, 13, 0, 7, 3, 0, 0, 0, 1, 0, 0, 5, 0, 17, 0, 0, 2, 11, 4, 10, 0, 0, 7, 15]
+ablación + arsenal (borde 30 % vivo)            4    24/24          306   [0, 4, 5, 3, 15, 0, 12, 8, 1, 4, 0, 6, 1, 9, 0, 0, 2, 6, 8, 2, 0, 0, 6, 10]
+Kuerer: arsenal → biopsia → ablación            2    23/24          247   [0, 0, 6, 6, 19, 0, 5, 0, 11, 6, 0, 0, 3, 6, 0, 4, 0, 39, 2, 0, 8, 0, 1497, 0]
+                                        biopsia negativa (no se toca) en 10/24; de ellas con tumor vivo en el tejido: 10 (falsos negativos 10/24 de las que tenían tumor)
+                                        desenlace de las NO tocadas: [6, 19, 5, 11, 6, 6, 4, 39, 8, 1497]
+
+(2553 s)

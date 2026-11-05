@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "Si usas este simulador en un trabajo, cítalo así."
+title: "breast-cancer-abm: simulador por agentes de cáncer de mama y células terapéuticas programables"
+authors:
+  - given-names: Ismael
+    family-names: Ben
+license: MIT
+repository-code: "https://github.com/TheIsmael12/breast-cancer-abm"
+date-released: 2026-11-05
+keywords:
+  - agent-based model
+  - breast cancer
+  - computational oncology
+  - ctDNA
+  - ablation

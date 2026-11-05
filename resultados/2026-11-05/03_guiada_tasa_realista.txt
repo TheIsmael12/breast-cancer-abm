@@ -1,0 +1,25 @@
+SIN CIRUGÍA · luminal · tratamiento día 120 · seguimiento a 500 d · 24 semillas · control = <100 peligrosas
+
+brazo                                     mediana  control  sanas dest.   por semilla
+ctDNA + ablación GUIADA                         2    24/24           14   [1, 3, 3, 6, 11, 0, 1, 7, 2, 1, 5, 2, 1, 6, 23, 3, 2, 0, 2, 2, 4, 10, 0, 21]
+                                        sin tocar nunca la mama: 2/24 → desenlace [1, 3]
+                                        rescatadas: días [180, 180, 180, 180, 180, 240, 270, 270, 300, 300, 330, 360, 360, 390, 390, 390, 420, 420, 450, 450, 480, 480]
+REAL: ctDNA + ablación GUIADA                   0    24/24            8   [2, 5, 0, 7, 1, 0, 1, 4, 0, 0, 4, 0, 0, 0, 22, 2, 0, 0, 0, 0, 8, 4, 0, 3]
+                                        sin tocar nunca la mama: 6/24 → desenlace [2, 5, 0, 4, 0, 0]
+                                        rescatadas: días [180, 180, 180, 180, 180, 180, 210, 210, 210, 240, 240, 270, 270, 300, 390, 390, 420, 450]
+
+(1382 s)
+SIN CIRUGÍA · luminal · tratamiento día 120 · seguimiento a 500 d · 24 semillas · control = <100 peligrosas
+
+brazo                                     mediana  control  sanas dest.   por semilla
+REAL: solo arsenal                              5    23/24            0   [4, 15, 3, 14, 7, 68, 1, 4, 0, 7, 3, 0, 0, 2, 354, 2, 8, 22, 9, 0, 10, 6, 2, 13]
+
+(622 s)
+SIN CIRUGÍA · luminal · tratamiento día 120 · seguimiento a 500 d · 24 semillas · control = <100 peligrosas
+
+brazo                                     mediana  control  sanas dest.   por semilla
+REAL: ctDNA + ablación disco                    0    24/24          285   [2, 5, 0, 0, 0, 0, 0, 0, 0, 5, 4, 0, 0, 1, 18, 0, 0, 0, 0, 0, 0, 0, 0, 4]
+                                        sin tocar nunca la mama: 6/24 → desenlace [2, 5, 0, 4, 0, 0]
+                                        rescatadas: días [180, 180, 180, 180, 180, 180, 210, 210, 210, 240, 240, 270, 270, 300, 390, 390, 420, 450]
+
+(522 s)

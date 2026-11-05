@@ -1,0 +1,11 @@
+brazo,controladas,erradicadas,sanas_destruidas,sin_tocar_mama,n,tasa_tras_tratar,fichero
+Cirugía + arsenal (referencia),24,13,324,0,24,acelerada,01_sin_cirugia.txt
+Solo arsenal,20,0,0,24,24,acelerada,01_sin_cirugia.txt
+Ablación en disco + arsenal,24,13,324,0,24,acelerada,01_sin_cirugia.txt
+Biopsia → ablación si positiva,23,4,0,20,24,acelerada,02_puertas_biopsia_ctdna.txt
+Biopsia + ctDNA mensual + ablación en disco,24,16,314,0,24,acelerada,02_puertas_biopsia_ctdna.txt
+ctDNA mensual + ablación en disco,24,15,292,2,24,acelerada,02_puertas_biopsia_ctdna.txt
+ctDNA mensual + ablación guiada,24,3,14,2,24,acelerada,03_guiada_tasa_realista.txt
+REALISTA: solo arsenal,23,4,0,24,24,realista,03_guiada_tasa_realista.txt
+REALISTA: ctDNA + ablación en disco,24,17,285,6,24,realista,03_guiada_tasa_realista.txt
+REALISTA: ctDNA + ablación guiada,24,12,8,6,24,realista,03_guiada_tasa_realista.txt

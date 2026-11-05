@@ -1,0 +1,22 @@
+name: Error en el código
+description: Algo falla, se cuelga o da un resultado imposible
+labels: ["error"]
+body:
+  - type: textarea
+    id: comando
+    attributes:
+      label: Comando exacto
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: salida
+    attributes:
+      label: Qué pasó (salida o traza)
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: entorno
+    attributes:
+      label: Sistema y versión de Python

@@ -1,0 +1,25 @@
+name: Nuevo experimento
+description: Una pregunta que el simulador podría contestar
+labels: ["experimento"]
+body:
+  - type: textarea
+    id: pregunta
+    attributes:
+      label: Pregunta
+    validations:
+      required: true
+  - type: textarea
+    id: criterio
+    attributes:
+      label: Criterio de éxito (escrito ANTES de ejecutar)
+      description: Qué resultado confirmaría la idea y cuál la refutaría.
+    validations:
+      required: true
+  - type: textarea
+    id: brazos
+    attributes:
+      label: Brazos a comparar y control
+  - type: textarea
+    id: inspiracion
+    attributes:
+      label: Inspiración clínica o fuente

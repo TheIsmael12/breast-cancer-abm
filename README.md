@@ -1,5 +1,7 @@
 # Simulador de cáncer de mama y células terapéuticas programables
 
+[![CI](https://github.com/TheIsmael12/breast-cancer-abm/actions/workflows/ci.yml/badge.svg)](https://github.com/TheIsmael12/breast-cancer-abm/actions/workflows/ci.yml) [![Licencia MIT](https://img.shields.io/badge/licencia-MIT-blue.svg)](LICENSE)
+
 > **Proyecto abierto de investigación (licencia MIT).** Modelo por agentes, educativo y
 > exploratorio. **No sirve para decisiones médicas**: las tasas están aceleradas y el
 > tejido es un corte 2D de 1,65 mm. Lo que sí aporta es un banco de pruebas donde cada
@@ -18,6 +20,13 @@
 
 ![El visor](docs/capturas/02_dia_120_tumor.png)
 
+**En 3D** (`tejido3d.py`) se ve el muro que frena a casi todas las terapias: las células
+terapéuticas (estrellas) se quedan en la superficie y el núcleo es inaccesible. La
+fracción accesible del tumor cae del 82 % al 33 % al crecer.
+
+![El conducto en 3D](docs/capturas/05_3d_conducto_en_corte.png)
+![Secciones 3D](docs/capturas/06_3d_secciones.png)
+
 ## Estructura del repositorio
 
 ```
@@ -26,10 +35,12 @@
 ├── biologia.py                  genes, escenarios, parámetros y calibraciones
 ├── agentes.py, politicas.py     inmunidad y células terapéuticas programables
 ├── validacion.py                tests T1-T18 contra datos clínicos
+├── tests/                       prueba de humo que pasa la CI en cada PR
 ├── sin_cirugia.py, prueba_residuo.py, capturas.py   estudio 2026-11-05
 ├── *.py                         un banco de pruebas por pregunta (tabla «Los programas»)
 ├── datos/                       TCGA-BRCA descargado de cBioPortal
 ├── resultados/AAAA-MM-DD/       salidas brutas de cada estudio
+├── .github/                     CI, plantillas de issues y de PR
 └── docs/
     ├── avances/                 un documento por avance, con fuentes y limitaciones
     ├── informes/                informes técnicos y hoja de ruta
@@ -41,9 +52,13 @@
 
 Se aceptan *issues* y *pull requests*, sobre todo de personas con formación en biología
 o en oncología: correcciones de supuestos, datos mejores o nuevos tests de validación.
-La norma de la casa: **el criterio de éxito se escribe antes de ejecutar**, y un
-resultado que contradice la expectativa se publica igual. Para citarlo, usa
-[`CITATION.cff`](CITATION.cff).
+Hay plantillas para cada caso y la CI comprueba cada PR (lint + prueba de humo).
+
+- **Guía:** [`CONTRIBUTING.md`](CONTRIBUTING.md) · **Código de conducta:** [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
+- **Debate abierto:** [Discussions](https://github.com/TheIsmael12/breast-cancer-abm/discussions)
+- La norma de la casa: **el criterio de éxito se escribe antes de ejecutar**, y un
+  resultado que contradice la expectativa se publica igual.
+- Para citarlo: [`CITATION.cff`](CITATION.cff).
 
 ---
 

@@ -403,8 +403,8 @@ def validar(semillas, dias, procesos=None):
                 f"sin veredicto)", d2 > 0.80, ">80 % (Pantel 2004)")
     ok3 = linea("D3", "mueren en el trayecto",
                 f"{d3:.1%} de {tot_intra} intravasaciones", d3 > 0.90, "la gran mayoría")
-    print(f"\n  [ -- ] D4 control de dependencia: ejecutar aparte "
-          f"(--d4) antes de dar la fase por cerrada")
+    print("\n  [ -- ] D4 control de dependencia: ejecutar aparte "
+          "(--d4) antes de dar la fase por cerrada")
     print(f"\n  Detección: IHC ve {statistics.median(r['biopsia_ihc'] for r in res):.0f} "
           f"y citometría {statistics.median(r['biopsia_citometria'] for r in res):.0f} "
           f"de {statistics.median(r['dtc'] for r in res):.0f} reales "

@@ -1,0 +1,28 @@
+name: Supuesto biológico
+description: Algo del modelo no se comporta como en la biología real
+labels: ["biología"]
+body:
+  - type: textarea
+    id: que
+    attributes:
+      label: Qué hace el modelo
+      description: Archivo y función si los conoces (p. ej. tejido.py, _vivir).
+    validations:
+      required: true
+  - type: textarea
+    id: real
+    attributes:
+      label: Qué pasa en la realidad
+    validations:
+      required: true
+  - type: textarea
+    id: fuente
+    attributes:
+      label: Fuente
+      description: Artículo, DOI o enlace. Sin fuente no se puede cambiar el modelo.
+    validations:
+      required: true
+  - type: textarea
+    id: impacto
+    attributes:
+      label: ¿Qué resultado crees que cambiaría?

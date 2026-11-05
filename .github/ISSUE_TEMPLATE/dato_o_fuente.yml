@@ -1,0 +1,16 @@
+name: Dato o fuente
+description: Un dato medido, un ensayo o un artículo que el modelo debería usar
+labels: ["datos"]
+body:
+  - type: input
+    id: fuente
+    attributes:
+      label: Fuente (DOI o enlace)
+    validations:
+      required: true
+  - type: textarea
+    id: dato
+    attributes:
+      label: Qué dato aporta y para qué parte del modelo
+    validations:
+      required: true

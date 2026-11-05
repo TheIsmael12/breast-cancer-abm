@@ -8,9 +8,14 @@ el día 120 tiene un carcinoma de ~900 células en 7 focos):
   03 · comparativa del tratamiento local el día después: tumor · cirugía · ablación en
        disco · ablación guiada (la misma paciente copiada cuatro veces)
   04 · gráfica de resultados de sin_cirugia.py (resultados/2026-11-05/resumen.csv)
+  05 · 3D (tejido3d.py): el conducto en corte el día 45, el 80 y el 100 (arsenal el 80)
+  06 · 3D: secciones transversales del día 100, de la superficie al núcleo
+
+    python capturas.py --solo 3d      # solo las 3D (~2 min)
 """
 from __future__ import annotations
 
+import argparse
 import copy
 import csv
 from pathlib import Path
@@ -21,7 +26,9 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
 from biologia import PASOS_POR_DIA  # noqa: E402
-from visor import Visor  # noqa: E402
+from visor import COLORES, Visor  # noqa: E402
+from tejido import (FIBROBLASTO, HIPERPLASIA, IN_SITU, INICIADA, INVASIVA,  # noqa: E402
+                    MIOEPITELIAL, NECROSIS, NORMAL, REINA)
 
 RAIZ = Path(__file__).parent
 SALIDA = RAIZ / "docs" / "capturas"
@@ -126,8 +133,133 @@ def grafica_resultados():
     print("  · 04_resultados_sin_cirugia.png")
 
 
+def _estado3d(sim, pos, c) -> int:
+    """El mismo código de colores que el visor 2D."""
+    from tejido3d import ESTROMA, MIO
+    if c.tipo == FIBROBLASTO:
+        return -1
+    if c.tipo == MIOEPITELIAL:
+        return -2
+    if c.necrosis:
+        return NECROSIS
+    if c.n_drivers == 0:
+        return NORMAL
+    if c.madre:
+        return REINA
+    if sim.zona[pos] in (MIO, ESTROMA):
+        return INVASIVA
+    if c.anoikis_res:
+        return IN_SITU
+    return HIPERPLASIA if c.senal_prolif else INICIADA
+
+
+def _corte3d(ax, sim, titulo: str):
+    """Medio cilindro (x <= eje) para ver dentro: lo que una célula terapéutica ve."""
+    eje = sim.centro
+    grupos: dict[int, list] = {}
+    for pos, c in sim.celulas.items():
+        z, y, x = pos
+        if x > eje + 0.5:
+            continue
+        e = _estado3d(sim, pos, c)
+        if e == -1:
+            continue
+        grupos.setdefault(e, []).append((x, y, z))
+    estilo = {   # (color, tamaño, opacidad, etiqueta)
+        -2: ("#8e7cc3", 3, 0.10, "mioepitelial"), NORMAL: ("#f4b6c8", 3, 0.18, "normal"),
+        INICIADA: (COLORES[INICIADA], 5, 0.6, "iniciada"),
+        HIPERPLASIA: (COLORES[HIPERPLASIA], 5, 0.6, "hiperplasia"),
+        IN_SITU: (COLORES[IN_SITU], 6, 0.55, "carcinoma in situ"),
+        INVASIVA: (COLORES[INVASIVA], 7, 0.8, "carcinoma invasivo"),
+        REINA: ("#ffffff", 10, 1.0, "célula madre tumoral"),
+        NECROSIS: (COLORES[NECROSIS], 6, 0.7, "necrosis"),
+    }
+    for e, (color, tam, alfa, nombre) in estilo.items():
+        if e in grupos:
+            xs, ys, zs = zip(*grupos[e])
+            ax.scatter(xs, ys, zs, s=tam, c=color, alpha=alfa, linewidths=0,
+                       label=f"{nombre} ({len(grupos[e])})", depthshade=False)
+    ia = [a.pos for a in sim.agentes if a.tipo == "IA" and a.pos[2] <= eje + 0.5]
+    if ia:
+        zs, ys, xs = zip(*ia)
+        ax.scatter(xs, ys, zs, s=26, c="#f72585", marker="*", linewidths=0,
+                   label=f"célula terapéutica ({len(ia)})", depthshade=False)
+    largo, lado, _ = sim.forma
+    ax.set_xlim(0, lado), ax.set_ylim(0, lado), ax.set_zlim(0, largo)
+    ax.set_box_aspect((lado / 2, lado, largo))
+    ax.view_init(elev=18, azim=-28)
+    ax.set_axis_off()
+    r = sim.resumen()
+    ax.set_title(f"{titulo}\ntumor {r['tumorales']:,} · peligrosas {r['peligrosas']:,} · "
+                 f"accesible {sim.fraccion_accesible():.0%}".replace(",", "."), fontsize=10)
+    ax.legend(loc="upper left", fontsize=7, frameon=False, markerscale=1.6)
+
+
+def capturas_3d():
+    from tejido3d import Simulacion3D
+
+    def avanzar3d(sim, dias):
+        for _ in range(int(dias * PASOS_POR_DIA)):
+            sim.paso()
+
+    plt.style.use("dark_background")
+    sim = Simulacion3D("luminal", 1)
+    fig = plt.figure(figsize=(18, 7.2))
+    avanzar3d(sim, 45)
+    _corte3d(fig.add_subplot(1, 3, 1, projection="3d"), sim, "Día 45 · lesión inicial")
+    avanzar3d(sim, 35)
+    _corte3d(fig.add_subplot(1, 3, 2, projection="3d"), sim,
+             "Día 80 · la masa llena el conducto")
+    sim.liberar_terapia("troyano+guardiana_nicho+memoria", 300)
+    avanzar3d(sim, 20)
+    _corte3d(fig.add_subplot(1, 3, 3, projection="3d"), sim,
+             "Día 100 · 20 días después del arsenal")
+    fig.suptitle("Modelo 3D (tejido3d.py): medio conducto mamario cortado a lo largo. "
+                 "«Accesible» = células tumorales con un hueco al lado, por donde puede "
+                 "entrar una terapia", fontsize=11)
+    fig.tight_layout()
+    fig.savefig(SALIDA / "05_3d_conducto_en_corte.png", dpi=85)
+    plt.close(fig)
+    print("  · 05_3d_conducto_en_corte.png")
+
+    # Secciones transversales del mismo día 100: dónde están las terapéuticas.
+    largo, lado, _ = sim.forma
+    import numpy as np
+    from matplotlib.colors import to_rgb
+    fig, ejes = plt.subplots(1, 4, figsize=(16, 4.6))
+    for ax, z in zip(ejes, (largo // 8, largo // 3, largo // 2, 3 * largo // 4)):
+        img = np.full((lado, lado, 3), to_rgb("#231b17"))
+        img[sim.zona[z] == 0] = to_rgb("#120c16")
+        img[sim.vasos[z]] = to_rgb("#ff2d55")
+        for (zz, y, x), c in sim.celulas.items():
+            if zz != z:
+                continue
+            e = _estado3d(sim, (zz, y, x), c)
+            img[y, x] = to_rgb({-1: COLORES[1], -2: "#8e7cc3"}.get(e, COLORES.get(e, "#ffffff")))
+        ax.imshow(img, interpolation="nearest")
+        pts = [(a.pos[2], a.pos[1]) for a in sim.agentes if a.tipo == "IA" and a.pos[0] == z]
+        if pts:
+            ax.scatter(*zip(*pts), s=40, marker="*", c="#f72585")
+        ax.set_title(f"sección z = {z} · terapéuticas en el plano: {len(pts)}", fontsize=10)
+        ax.set_xticks([]), ax.set_yticks([])
+    fig.suptitle("Día 100 en 3D, secciones transversales del conducto (rojo: carcinoma · "
+                 "estrellas: células terapéuticas)", fontsize=11)
+    fig.tight_layout()
+    fig.savefig(SALIDA / "06_3d_secciones.png", dpi=85)
+    plt.close(fig)
+    print("  · 06_3d_secciones.png")
+
+
 if __name__ == "__main__":
+    ap = argparse.ArgumentParser(description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--solo", choices=("2d", "3d", "grafica"), default=None)
+    a = ap.parse_args()
     SALIDA.mkdir(parents=True, exist_ok=True)
     print("Capturas en", SALIDA)
-    capturas_visor()
-    grafica_resultados()
+    if a.solo in (None, "2d"):
+        capturas_visor()
+    if a.solo in (None, "grafica"):
+        grafica_resultados()
+    if a.solo in (None, "3d"):
+        capturas_3d()

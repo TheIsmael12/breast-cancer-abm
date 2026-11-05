@@ -1,0 +1,18 @@
+FOTO DEL DÍA 180 (60 d tras el arsenal) · 24 pacientes
+  con carcinoma residual: 18  ·  sin carcinoma (respuesta completa real): 6
+  carcinoma residual en las que tienen: [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 16, 18, 21, 75, 143, 186, 383]
+
+BIOPSIA POR VACÍO — falsos negativos (sobre las que SÍ tienen carcinoma)
+    6 cilindros: falsos negativos  74.1%
+   12 cilindros: falsos negativos  65.7%
+   24 cilindros: falsos negativos  52.2%
+   48 cilindros: falsos negativos  37.2%
+   96 cilindros: falsos negativos  27.6%
+
+BIOPSIA LÍQUIDA (ctDNA) — una sola extracción el día 180
+  sensibilidad pre-tratamiento 50% → 2.48e-02 fragmentos/célula · falsos negativos el día 180:  69.2% · positivos sin carcinoma:  0.0%
+  sensibilidad pre-tratamiento 75% → 9.91e-02 fragmentos/célula · falsos negativos el día 180:  51.4% · positivos sin carcinoma:  0.0%
+  sensibilidad pre-tratamiento 90% → 2.28e-01 fragmentos/célula · falsos negativos el día 180:  37.0% · positivos sin carcinoma:  0.0%
+
+  por paciente (carcinoma residual · ADN que vierte, relativo al de antes de tratar):
+  3·13.64%  2·40.00%  1·16.67%  4·44.44%  75·17.99%  383·58.46%  3·33.33%  1·33.33%  2·15.38%  2·28.57%  18·11.46%  1·20.00%  143·17.47%  186·22.29%  16·1.96%  4·11.76%  21·2.04%  3·0.25%

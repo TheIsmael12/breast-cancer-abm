@@ -10,6 +10,10 @@ el día 120 tiene un carcinoma de ~900 células en 7 focos):
   04 · gráfica de resultados de sin_cirugia.py (resultados/2026-11-05/resumen.csv)
   05 · 3D (tejido3d.py): el conducto en corte el día 45, el 80 y el 100 (arsenal el 80)
   06 · 3D: secciones transversales del día 100, de la superficie al núcleo
+  07 · 3D, sin_cirugia_3d.py: la paciente 4 el día 90 (arsenal el 60, ctDNA positivo)
+       copiada tres veces: sin ablación · ablación en disco · ablación guiada
+
+    python capturas.py --solo ablacion3d   # solo la 07 (~5 min)
 
     python capturas.py --solo 3d      # solo las 3D (~2 min)
 """
@@ -87,6 +91,7 @@ def grafica_resultados():
     """Dos paneles (dos escalas distintas → dos gráficas, nunca doble eje)."""
     filas = list(csv.DictReader(open(RAIZ / "resultados" / "2026-11-05" / "resumen.csv",
                                      encoding="utf-8")))
+    filas = [f for f in filas if not f["brazo"].startswith("3D")]   # solo el banco 2D (n=24)
     filas.reverse()   # la referencia arriba
     etiquetas = [f["brazo"] for f in filas]
     control = [int(f["controladas"]) for f in filas]
@@ -250,10 +255,41 @@ def capturas_3d():
     print("  · 06_3d_secciones.png")
 
 
+def captura_ablacion_3d():
+    """07: lo que hace cada ablación en 3D el día del rescate por ctDNA (día 90)."""
+    from biologia import CALIBRACIONES
+    from sin_cirugia_3d import ARSENAL, _nueva
+
+    plt.style.use("dark_background")
+    sim = _nueva(4)
+    for paso in range(int(90 * PASOS_POR_DIA)):
+        if paso == int(60 * PASOS_POR_DIA):
+            sim.p.tasa_mutacion = CALIBRACIONES["realista"]
+            sim.liberar_terapia(ARSENAL, 300)
+        sim.paso()
+    disco, guiada = copy.deepcopy(sim), copy.deepcopy(sim)
+    rd = disco.ablacionar(guiada=False, borde=2)
+    rg = guiada.ablacionar(guiada=True, borde=1)
+    fig = plt.figure(figsize=(18, 7.2))
+    _corte3d(fig.add_subplot(1, 3, 1, projection="3d"), sim,
+             "Día 90 · ctDNA positivo (arsenal el día 60)")
+    _corte3d(fig.add_subplot(1, 3, 2, projection="3d"), disco,
+             f"Ablación en disco · {rd['sanas']:,} sanas destruidas".replace(",", "."))
+    _corte3d(fig.add_subplot(1, 3, 3, projection="3d"), guiada,
+             f"Ablación guiada · {rg['sanas']:,} sanas destruidas".replace(",", "."))
+    fig.suptitle("Modelo 3D, paciente 4: la misma paciente copiada tres veces. El disco "
+                 "apunta al centro de todo el tumor y deja focos fuera; la guiada va a "
+                 "cada foco visible", fontsize=11)
+    fig.tight_layout()
+    fig.savefig(SALIDA / "07_3d_ablacion_disco_frente_a_guiada.png", dpi=85)
+    plt.close(fig)
+    print("  · 07_3d_ablacion_disco_frente_a_guiada.png")
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--solo", choices=("2d", "3d", "grafica"), default=None)
+    ap.add_argument("--solo", choices=("2d", "3d", "grafica", "ablacion3d"), default=None)
     a = ap.parse_args()
     SALIDA.mkdir(parents=True, exist_ok=True)
     print("Capturas en", SALIDA)
@@ -263,3 +299,5 @@ if __name__ == "__main__":
         grafica_resultados()
     if a.solo in (None, "3d"):
         capturas_3d()
+    if a.solo in (None, "ablacion3d"):
+        captura_ablacion_3d()

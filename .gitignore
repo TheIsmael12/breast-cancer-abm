@@ -5,3 +5,4 @@ venv/
 .idea/
 .vscode/
 *.log
+resultados/cache_3d/

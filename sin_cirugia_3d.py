@@ -19,7 +19,9 @@ Diseño (CRITERIO escrito antes de ejecutar, 2026-11-05):
 from __future__ import annotations
 
 import argparse
+import json
 import math
+import os
 import statistics
 import time
 from multiprocessing import Pool
@@ -41,8 +43,30 @@ def _nueva(semilla: int) -> Simulacion3D:
     return Simulacion3D("luminal", semilla, Parametros(prob_neoantigeno=0.1, error_edicion=0.01))
 
 
+CACHE = os.path.join("resultados", "cache_3d")
+
+
+def _guardado(nombre: str, calcular):
+    """Lee el resultado de disco si ya existe; si no, lo calcula y lo guarda.
+    Así un banco cortado (falta de memoria, apagón) se retoma donde se quedó."""
+    ruta = os.path.join(CACHE, nombre + ".json")
+    if os.path.exists(ruta):
+        with open(ruta, encoding="utf-8") as fh:
+            return json.load(fh)
+    valor = calcular()
+    os.makedirs(CACHE, exist_ok=True)
+    with open(ruta + ".tmp", "w", encoding="utf-8") as fh:
+        json.dump(valor, fh)
+    os.replace(ruta + ".tmp", ruta)
+    return valor
+
+
 def base_pre(args) -> float:
     semilla, dia = args
+    return _guardado(f"base_s{semilla}_d{dia:g}", lambda: _base_pre(semilla, dia))
+
+
+def _base_pre(semilla: int, dia: float) -> float:
     sim = _nueva(semilla)
     for _ in range(int(dia * PASOS_POR_DIA)):
         sim.paso()
@@ -51,6 +75,11 @@ def base_pre(args) -> float:
 
 def correr(args) -> dict:
     brazo, semilla, dia, dias, dosis, fragmentos = args
+    clave = f"{brazo[1] or ('arsenal' if brazo[2] else 'nada')}_s{semilla}_d{dia:g}-{dias:g}_x{dosis}_f{fragmentos:.4e}"
+    return _guardado(clave, lambda: _correr(brazo, semilla, dia, dias, dosis, fragmentos))
+
+
+def _correr(brazo, semilla, dia, dias, dosis, fragmentos) -> dict:
     _, local, arsenal = brazo
     sim = _nueva(semilla)
     p0 = int(dia * PASOS_POR_DIA)

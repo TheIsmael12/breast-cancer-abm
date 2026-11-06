@@ -13,3 +13,8 @@ IMAGEN ≥5 células: ctDNA + guiada,24,5,0,18,24,realista,04_umbral_imagen.txt
 IMAGEN ≥25 células: ctDNA + guiada,24,4,0,20,24,realista,04_umbral_imagen.txt
 IMAGEN ≥100 células: ctDNA + guiada,24,4,0,22,24,realista,04_umbral_imagen.txt
 IMAGEN ciega: ctDNA → solo arsenal,23,4,0,24,24,realista,04_umbral_imagen.txt
+3D: nada,0,0,0,8,8,realista,05_sin_cirugia_3d.txt
+3D: solo arsenal,0,0,0,8,8,realista,05_sin_cirugia_3d.txt
+3D: ablación en disco + arsenal,4,0,8763,0,8,realista,05_sin_cirugia_3d.txt
+3D: ctDNA mensual + ablación guiada,8,2,3800,0,8,realista,05_sin_cirugia_3d.txt
+3D: ctDNA mensual + ablación en disco,1,0,5980,0,8,realista,05_sin_cirugia_3d.txt

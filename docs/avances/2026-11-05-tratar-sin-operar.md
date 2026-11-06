@@ -152,3 +152,5 @@ clínica. Tasa realista tras tratar, las mismas 24 pacientes
 ejecutar). En 2D todo el tumor está cerca de la superficie; en 3D las terapias se quedan
 en el borde ([capturas 05-06](../capturas/)). Si el protocolo aguanta en 3D, el
 resultado gana mucho peso.
+
+→ Hecho: [¿Aguanta en 3D el protocolo sin bisturí?](2026-11-06-sin-bisturi-en-3d.md) (sí: 8/8 frente a 4/8 del disco).

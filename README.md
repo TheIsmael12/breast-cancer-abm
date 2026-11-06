@@ -1,6 +1,6 @@
 # Simulador de cáncer de mama y células terapéuticas programables
 
-[![CI](https://github.com/TheIsmael12/breast-cancer-abm/actions/workflows/ci.yml/badge.svg)](https://github.com/TheIsmael12/breast-cancer-abm/actions/workflows/ci.yml) [![Licencia MIT](https://img.shields.io/badge/licencia-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/TheIsmael12/breast-cancer-abm/actions/workflows/ci.yml/badge.svg)](https://github.com/TheIsmael12/breast-cancer-abm/actions/workflows/ci.yml) [![Licencia MIT](https://img.shields.io/badge/licencia-MIT-blue.svg)](LICENSE) ![Visitas](https://visitor-badge.laobi.icu/badge?page_id=TheIsmael12.breast-cancer-abm&left_text=visitas&right_color=%232f81f7)
 
 > **Proyecto abierto de investigación (licencia MIT).** Modelo por agentes, educativo y
 > exploratorio. **No sirve para decisiones médicas**: las tasas están aceleradas y el

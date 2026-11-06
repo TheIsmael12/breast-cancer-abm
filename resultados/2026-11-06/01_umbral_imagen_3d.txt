@@ -1,0 +1,19 @@
+SIN CIRUGÍA EN 3D · luminal · tratamiento día 60 · seguimiento a 240 d · 8 semillas · dosis 300
+ctDNA calibrado en 3D: 2.25e-03 fragmentos/célula (sensibilidad 75 % el día 60; carcinoma-equivalente antes de tratar: [181, 244, 282, 805, 1363, 1900, 3026, 5690])
+
+control = <5 % de la mediana sin tratar (4855 peligrosas)
+
+brazo                                       mediana  control  a 0   sanas   por semilla
+nada                                          97102     0/8     0       0   [11221, 97370, 97089, 97861, 10774, 97115, 96955, 97629]
+ctDNA → guiada, imagen ve todo (≥1)              32     8/8     2    3800   [67, 0, 24, 0, 604, 39, 51, 5]
+                                          rescates (día): [90, 90, 90, 90, 90, 90, 90, 90] · sin tocar: 0/8 · sanas: [2930, 4180, 3719, 4187, 1962, 3880, 3231, 4293]
+ctDNA → guiada, imagen ve ≥5                     48     8/8     3    3778   [82, 0, 18, 0, 3705, 77, 239, 0]
+                                          rescates (día): [90, 90, 90, 90, 90, 90, 90, 90] · sin tocar: 0/8 · sanas: [2903, 4180, 3670, 4192, 1810, 3885, 3220, 4287]
+ctDNA → guiada, imagen ve ≥25                    46     8/8     3    3774   [82, 0, 18, 0, 320, 74, 239, 0]
+                                          rescates (día): [90, 90, 90, 90, 90, 90, 90, 90] · sin tocar: 0/8 · sanas: [2903, 4180, 3670, 4192, 1772, 3877, 3220, 4292]
+ctDNA → guiada, imagen ve ≥100                   46     8/8     3    3774   [82, 0, 18, 0, 320, 74, 239, 0]
+                                          rescates (día): [90, 90, 90, 90, 90, 90, 90, 90] · sin tocar: 0/8 · sanas: [2903, 4180, 3670, 4192, 1772, 3877, 3220, 4292]
+ctDNA → imagen ciega (solo arsenal)           96630     0/8     0       0   [92975, 97322, 91163, 97691, 10694, 96873, 96386, 97541]
+                                          rescates (día): [90, 90, 90, 90, 90, 90, 90, 90] · sin tocar: 8/8 · sanas: [0, 0, 0, 0, 0, 0, 0, 0]
+
+(12923 s)

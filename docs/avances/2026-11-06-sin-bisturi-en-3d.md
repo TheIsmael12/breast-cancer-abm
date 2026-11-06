@@ -9,6 +9,8 @@ de la superficie. En 3D las terapias se quedan en el borde de la masa
 **ctDNA mensual + ablación guiada controla a 8 de 8 pacientes** destruyendo una mediana
 de **3.800 células sanas**. El equivalente a la cirugía (ablación en disco + arsenal)
 controla a **4 de 8** y destruye **8.763**. Los fármacos solos no hacen nada en 3D.
+Y **no hace falta ver focos pequeños**: con imagen que solo ve focos de ≥100 células
+sigue controlando 8 de 8; lo que no se puede quitar es la ablación (imagen ciega: 0/8).
 
 ![Ablación en disco frente a guiada en 3D](../capturas/07_3d_ablacion_disco_frente_a_guiada.png)
 
@@ -75,6 +77,40 @@ y destruye menos de la mitad de tejido sano (3.800 frente a 8.763).
    el control se midiera paciente a paciente frente a su propio brazo sin tratar
    (10.774), quedaría en el 5,6 %, justo por encima del umbral.
 
+## Umbral de imagen en 3D
+
+La guiada suponía que la imagen ve focos de 1 célula ([issue #1](https://github.com/TheIsmael12/breast-cancer-abm/issues/1)).
+Aquí solo ve focos de **≥N células**. Si el ctDNA da positivo y no se ve nada, no se
+ablaciona: solo se repite el arsenal, igual que en 2D. Mismas 8 pacientes; criterio
+escrito en el script antes de ejecutar (`python sin_cirugia_3d.py --umbrales`,
+[salida](../../resultados/2026-11-06/01_umbral_imagen_3d.txt)).
+
+| La imagen ve | Controladas | A 0 | Sanas destruidas (mediana) | Peligrosas por paciente (1-8) |
+|---|---|---|---|---|
+| todo (≥1) | 8/8 | 2 | 3.800 | 67 · 0 · 24 · 0 · 604 · 39 · 51 · 5 |
+| ≥5 células | 8/8 | 3 | 3.778 | 82 · 0 · 18 · 0 · 3.705 · 77 · 239 · 0 |
+| ≥25 células | 8/8 | 3 | 3.774 | 82 · 0 · 18 · 0 · 320 · 74 · 239 · 0 |
+| **≥100 células** | **8/8** | 3 | **3.774** | 82 · 0 · 18 · 0 · 320 · 74 · 239 · 0 |
+| nada (ciega) | **0/8** | 0 | 0 | 92.975 · 97.322 · 91.163 · 97.691 · 10.694 · 96.873 · 96.386 · 97.541 |
+
+**Veredicto según el criterio previo: el control NO depende de ver focos diminutos**
+(≥100 controla 8/8; el mínimo era 7/8).
+
+**Lectura.**
+
+1. **En 3D, ver focos de ≥100 células basta.** El día 90 todos los focos en 3D son
+   grandes: con ≥25 y con ≥100 la ablación es idéntica, célula a célula.
+2. **Lo que no se puede quitar en 3D es la ablación.** Con la imagen ciega, el arsenal
+   repetido no hace nada (96.630 de mediana frente a 97.102 sin tratar). Es lo
+   **contrario que en 2D**, donde la ciega controlaba 23 de 24 porque los fármacos
+   llegaban a todo el tumor. En 3D el tratamiento local que alcanza la masa es
+   imprescindible; la imagen solo tiene que ser lo bastante buena para encontrarla.
+3. **Dejar sin tocar los focos de menos de 5 células no empeora el resultado:** ver
+   ≥5 erradica a 3 pacientes frente a 2 viéndolo todo y destruye lo mismo. La paciente
+   5 sube a 3.705 con ≥5 y baja a 320 con ≥25: entre esos dos brazos solo cambian los
+   focos de 5-24 células, así que la diferencia es azar de la simulación, no un efecto
+   de la imagen. Con 8 pacientes no se puede separar mejor.
+
 ## Errores y contratiempos
 
 - **El banco se cortó tres veces** por falta de memoria del ordenador (la primera,
@@ -93,8 +129,9 @@ y destruye menos de la mitad de tejido sano (3.800 frente a 8.763).
   pendiente.
 - **Seguimiento de 180 días tras tratar.** Si los restos controlados se sostienen o
   acaban recayendo, el modelo aún no lo puede decir.
-- **La imagen ve focos de 1 célula** (supuesto optimista, [issue #1](https://github.com/TheIsmael12/breast-cancer-abm/issues/1)).
-  En 2D se comprobó que el control no dependía de ello; en 3D está pendiente.
+- **La imagen se modela como un umbral de tamaño de foco.** Ver focos de ≥100 células
+  sigue siendo optimista frente a una resonancia real (~2 mm), porque a esta escala el
+  conducto entero mide menos que eso. El umbral comprobado es relativo al modelo.
 - **En 3D no hay reclutamiento inmune propio**: solo actúan las células terapéuticas
   (ver bitácora, 29-10). Parte del control que en 2D aportaba la inmunidad aquí no existe.
 - Un solo cilindro de conducto y el tiempo comprimido ([issues #3 y #4](https://github.com/TheIsmael12/breast-cancer-abm/issues)).
@@ -102,6 +139,4 @@ y destruye menos de la mitad de tejido sano (3.800 frente a 8.763).
 
 ## Siguiente paso
 
-- El umbral de imagen en 3D (`umbral_visible` ya existe en `Simulacion3D.ablacionar`):
-  ¿sigue controlando la guiada si la imagen solo ve focos de ≥25 o ≥100 células?
 - Ampliar a 24 pacientes cuando el ordenador tenga memoria libre (con 2-3 procesos).

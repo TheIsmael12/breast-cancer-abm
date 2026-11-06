@@ -1,0 +1,6 @@
+brazo,controladas,erradicadas,sanas_destruidas,sin_tocar_mama,n,tasa_tras_tratar,fichero
+3D IMAGEN ≥1: ctDNA + guiada,8,2,3800,0,8,realista,01_umbral_imagen_3d.txt
+3D IMAGEN ≥5: ctDNA + guiada,8,3,3778,0,8,realista,01_umbral_imagen_3d.txt
+3D IMAGEN ≥25: ctDNA + guiada,8,3,3774,0,8,realista,01_umbral_imagen_3d.txt
+3D IMAGEN ≥100: ctDNA + guiada,8,3,3774,0,8,realista,01_umbral_imagen_3d.txt
+3D IMAGEN ciega: ctDNA → solo arsenal,0,0,0,8,8,realista,01_umbral_imagen_3d.txt

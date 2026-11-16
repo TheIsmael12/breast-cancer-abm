@@ -21,6 +21,6 @@
 
 ## Comprobaciones
 
-- [ ] `python -m pyflakes *.py tests/*.py` sin avisos
-- [ ] `python -m pytest -q tests` pasa
-- [ ] Si es un avance: documento en `docs/avances/`, salidas en `resultados/`
+- [ ] `ruff check src tests` sin avisos
+- [ ] `pytest` pasa
+- [ ] Si es un avance: documento en `docs/progress/`, salidas en `results/`

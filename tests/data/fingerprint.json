@@ -1,0 +1,982 @@
+{
+ "2d_day60": {
+  "summary": {
+   "day": 60.0,
+   "tumor_cells": 268,
+   "in_situ": 253,
+   "dangerous": 260,
+   "queens": 7,
+   "invasive_cells": 0,
+   "repaired_cells": 0,
+   "normal_cells": 137,
+   "apoptosis_p53": 15,
+   "anoikis": 0,
+   "necrosis": 0,
+   "immune_kills": 0,
+   "therapy_kills": 0,
+   "collateral": 0,
+   "repairs": 0,
+   "repairs_useless": 0,
+   "membrane_breaches": 0,
+   "new_vessels": 0,
+   "dedifferentiations": 4,
+   "guardians": 0,
+   "phagocytosed": 0,
+   "phagocytosed_healthy": 0,
+   "dose": 0,
+   "senescent_cells": 0,
+   "healthy_stems_touched": 0,
+   "propagations": 0,
+   "baits": 0,
+   "entosis": 0,
+   "bait_kills": 0,
+   "steps_blocked": 236,
+   "cd47_blocked": 0,
+   "cd47_healthy": 0,
+   "macrophage_eaten": 0,
+   "macrophage_eaten_healthy": 0,
+   "cafs_activated": 0,
+   "invasions_blocked": 0,
+   "trojan_deliveries": 0,
+   "sterilized": 0,
+   "sterilized_healthy": 0,
+   "guardians_reverted": 0,
+   "propagated_corrections": 0,
+   "fully_corrected": 0,
+   "editing_errors": 0,
+   "excised": 0,
+   "healthy_excised": 0,
+   "repairs_that_cure": 0,
+   "repairs_p53_lethal": 0,
+   "repairs_sterile": 0,
+   "repairs_drug": 0,
+   "repairs_bait": 0,
+   "adc_reached": 0,
+   "adc_killed": 0,
+   "adc_healthy": 0,
+   "adc_quiescent_spared": 0,
+   "aneuploid_cells": 0,
+   "aneuploid_healthy": 0
+  },
+  "t": 240,
+  "code": "46d2d2069e77a26d",
+  "agents": [
+   [
+    "MAC",
+    [
+     26,
+     92
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     60,
+     74
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     92,
+     45
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     74,
+     46
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     10,
+     101
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     5,
+     97
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     99,
+     27
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     34,
+     90
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     78,
+     8
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     27,
+     20
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     86,
+     105
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     104,
+     98
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     88,
+     24
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     58,
+     75
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     109,
+     70
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     47,
+     8
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     18,
+     41
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     36,
+     45
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     30,
+     87
+    ],
+    0
+   ],
+   [
+    "NK",
+    [
+     79,
+     18
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     71,
+     40
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     76,
+     18
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     9,
+     11
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     100,
+     102
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     69,
+     32
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     53,
+     91
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     91,
+     22
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     9,
+     91
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     6,
+     4
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     10,
+     100
+    ],
+    0
+   ]
+  ]
+ },
+ "therapy_hunter": {
+  "summary": {
+   "day": 66.0,
+   "tumor_cells": 335,
+   "in_situ": 315,
+   "dangerous": 325,
+   "queens": 10,
+   "invasive_cells": 0,
+   "repaired_cells": 0,
+   "normal_cells": 128,
+   "apoptosis_p53": 19,
+   "anoikis": 0,
+   "necrosis": 23,
+   "immune_kills": 0,
+   "therapy_kills": 9,
+   "collateral": 0,
+   "repairs": 0,
+   "repairs_useless": 0,
+   "membrane_breaches": 0,
+   "new_vessels": 0,
+   "dedifferentiations": 8,
+   "guardians": 0,
+   "phagocytosed": 0,
+   "phagocytosed_healthy": 0,
+   "dose": 80,
+   "senescent_cells": 0,
+   "healthy_stems_touched": 0,
+   "propagations": 0,
+   "baits": 0,
+   "entosis": 0,
+   "bait_kills": 0,
+   "steps_blocked": 471,
+   "cd47_blocked": 0,
+   "cd47_healthy": 0,
+   "macrophage_eaten": 0,
+   "macrophage_eaten_healthy": 0,
+   "cafs_activated": 0,
+   "invasions_blocked": 0,
+   "trojan_deliveries": 0,
+   "sterilized": 0,
+   "sterilized_healthy": 0,
+   "guardians_reverted": 0,
+   "propagated_corrections": 0,
+   "fully_corrected": 0,
+   "editing_errors": 0,
+   "excised": 0,
+   "healthy_excised": 0,
+   "repairs_that_cure": 0,
+   "repairs_p53_lethal": 0,
+   "repairs_sterile": 0,
+   "repairs_drug": 0,
+   "repairs_bait": 0,
+   "adc_reached": 0,
+   "adc_killed": 0,
+   "adc_healthy": 0,
+   "adc_quiescent_spared": 0,
+   "aneuploid_cells": 0,
+   "aneuploid_healthy": 0
+  },
+  "t": 264,
+  "code": "32d992c0aff7202b",
+  "agents": [
+   [
+    "MAC",
+    [
+     20,
+     85
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     58,
+     75
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     87,
+     38
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     75,
+     46
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     15,
+     99
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     8,
+     98
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     100,
+     20
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     35,
+     87
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     84,
+     12
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     27,
+     17
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     86,
+     104
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     100,
+     96
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     85,
+     21
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     59,
+     76
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     108,
+     74
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     52,
+     8
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     22,
+     38
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     37,
+     44
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     29,
+     83
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     70,
+     40
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     69,
+     23
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     14,
+     15
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     106,
+     106
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     67,
+     37
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     50,
+     88
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     93,
+     20
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     2,
+     99
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     2,
+     2
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     12,
+     100
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     24,
+     33
+    ],
+    0
+   ]
+  ]
+ },
+ "therapy_trojan+niche_guardian+memory": {
+  "summary": {
+   "day": 66.0,
+   "tumor_cells": 335,
+   "in_situ": 323,
+   "dangerous": 328,
+   "queens": 5,
+   "invasive_cells": 0,
+   "repaired_cells": 3,
+   "normal_cells": 130,
+   "apoptosis_p53": 23,
+   "anoikis": 2,
+   "necrosis": 23,
+   "immune_kills": 0,
+   "therapy_kills": 58,
+   "collateral": 0,
+   "repairs": 8,
+   "repairs_useless": 14,
+   "membrane_breaches": 0,
+   "new_vessels": 0,
+   "dedifferentiations": 8,
+   "guardians": 2,
+   "phagocytosed": 1,
+   "phagocytosed_healthy": 0,
+   "dose": 240,
+   "senescent_cells": 0,
+   "healthy_stems_touched": 0,
+   "propagations": 0,
+   "baits": 0,
+   "entosis": 0,
+   "bait_kills": 0,
+   "steps_blocked": 836,
+   "cd47_blocked": 0,
+   "cd47_healthy": 0,
+   "macrophage_eaten": 0,
+   "macrophage_eaten_healthy": 0,
+   "cafs_activated": 0,
+   "invasions_blocked": 0,
+   "trojan_deliveries": 5,
+   "sterilized": 0,
+   "sterilized_healthy": 0,
+   "guardians_reverted": 0,
+   "propagated_corrections": 0,
+   "fully_corrected": 0,
+   "editing_errors": 0,
+   "excised": 0,
+   "healthy_excised": 0,
+   "repairs_that_cure": 2,
+   "repairs_p53_lethal": 0,
+   "repairs_sterile": 6,
+   "repairs_drug": 0,
+   "repairs_bait": 0,
+   "adc_reached": 0,
+   "adc_killed": 0,
+   "adc_healthy": 0,
+   "adc_quiescent_spared": 0,
+   "aneuploid_cells": 0,
+   "aneuploid_healthy": 0
+  },
+  "t": 264,
+  "code": "9c390b7448b8d31d",
+  "agents": [
+   [
+    "MAC",
+    [
+     23,
+     93
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     58,
+     75
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     98,
+     48
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     73,
+     47
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     10,
+     100
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     9,
+     92
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     93,
+     21
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     35,
+     82
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     75,
+     12
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     26,
+     23
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     90,
+     107
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     107,
+     92
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     89,
+     22
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     58,
+     75
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     108,
+     66
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     41,
+     6
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     18,
+     37
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     35,
+     44
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     29,
+     89
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     71,
+     39
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     71,
+     11
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     7,
+     13
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     101,
+     98
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     65,
+     35
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     50,
+     84
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     91,
+     22
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     7,
+     91
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     4,
+     7
+    ],
+    0
+   ],
+   [
+    "T",
+    [
+     16,
+     109
+    ],
+    0
+   ],
+   [
+    "MAC",
+    [
+     26,
+     36
+    ],
+    0
+   ]
+  ]
+ },
+ "ablation_guided_False": {
+  "r": {
+   "destroyed": 257,
+   "healthy": 73,
+   "residual": 11
+  },
+  "ctdna": {
+   "positive": true,
+   "fragments": 39,
+   "expected": 38.7,
+   "alive": 3
+  },
+  "biopsy": {
+   "positive": false,
+   "sampled": 133,
+   "real": 3
+  }
+ },
+ "ablation_guided_True": {
+  "r": {
+   "destroyed": 261,
+   "healthy": 67,
+   "residual": 0,
+   "foci_seen": 2
+  },
+  "ctdna": {
+   "positive": true,
+   "fragments": 38,
+   "expected": 39.150000000000006,
+   "alive": 0
+  },
+  "biopsy": {
+   "positive": false,
+   "sampled": 138,
+   "real": 0
+  }
+ },
+ "3d": {
+  "summary": {
+   "day": 23.0,
+   "tumor_cells": 2,
+   "dangerous": 1,
+   "queens": 1,
+   "senescent_cells": 0,
+   "normal_cells": 571,
+   "agents": 180,
+   "apoptosis_p53": 7,
+   "anoikis": 0,
+   "necrosis": 0,
+   "immune_kills": 0,
+   "therapy_kills": 0,
+   "collateral": 0,
+   "repairs": 0,
+   "repairs_useless": 0,
+   "membrane_breaches": 0,
+   "new_vessels": 0,
+   "dedifferentiations": 0,
+   "guardians": 0,
+   "phagocytosed": 0,
+   "phagocytosed_healthy": 0,
+   "dose": 180,
+   "healthy_stems_touched": 0,
+   "propagations": 0,
+   "steps_blocked": 29
+  },
+  "t": 92,
+  "cells": "69e5f72bdf55e0e1"
+ }
+}

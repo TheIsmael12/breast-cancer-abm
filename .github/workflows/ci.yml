@@ -6,7 +6,8 @@ on:
   pull_request:
 
 jobs:
-  comprobar:
+  check:
+    name: comprobar
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -14,11 +15,14 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-      - name: Dependencias
-        run: pip install -r requirements.txt pyflakes pytest
-      - name: Lint (pyflakes)
-        run: python -m pyflakes *.py tests/*.py
-      - name: Prueba de humo
+          cache: pip
+      - name: Instalar
+        run: pip install -e ".[dev]"
+      - name: Lint (ruff)
+        run: |
+          ruff check src tests
+          ruff format --check src tests
+      - name: Pruebas (humo + huella del modelo)
         env:
           MPLBACKEND: Agg
-        run: python -m pytest -q tests
+        run: pytest

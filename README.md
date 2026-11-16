@@ -19,49 +19,108 @@
 
 | | |
 |---|---|
-| **Último avance** | [2026-11-06 · ¿Aguanta en 3D el protocolo sin bisturí?](docs/avances/2026-11-06-sin-bisturi-en-3d.md): en 3D, ctDNA mensual + ablación guiada controla 8/8 pacientes frente a 4/8 del equivalente a la cirugía, con menos de la mitad de tejido sano destruido |
-| **Todos los avances** | [`docs/avances/`](docs/avances/) |
-| **Bitácora completa** (hallazgos, errores, expectativas fallidas) | [`docs/BITACORA.md`](docs/BITACORA.md) |
-| **Informes técnicos** | [`docs/informes/`](docs/informes/) |
-| **Capturas** | [`docs/capturas/`](docs/capturas/) (se regeneran con `python capturas.py`) |
-| **Salidas brutas de cada experimento** | [`resultados/`](resultados/) |
-| **Batería de validación contra la clínica** | `python validacion.py` |
+| **Último avance** | [2026-11-06 · ¿Aguanta en 3D el protocolo sin bisturí?](docs/progress/2026-11-06-no-scalpel-in-3d.md): en 3D, ctDNA mensual + ablación guiada controla 8/8 pacientes frente a 4/8 del equivalente a la cirugía, con menos de la mitad de tejido sano destruido |
+| **Todos los avances** | [`docs/progress/`](docs/progress/) |
+| **Bitácora completa** (hallazgos, errores, expectativas fallidas) | [`docs/LOGBOOK.md`](docs/LOGBOOK.md) |
+| **Informes técnicos** | [`docs/reports/`](docs/reports/) |
+| **Salidas brutas de cada experimento** | [`results/`](results/) |
+| **Nombres antiguos (español) → actuales** | [`docs/NAMING.md`](docs/NAMING.md) |
 
-![El visor](docs/capturas/02_dia_120_tumor.png)
+## La aplicación
 
-**En 3D** (`tejido3d.py`) se ve el muro que frena a casi todas las terapias: las células
-terapéuticas (estrellas) se quedan en la superficie y el núcleo es inaccesible. La
-fracción accesible del tumor cae del 82 % al 33 % al crecer.
+Todo el proyecto en una ventana, sin escribir código:
 
-![El conducto en 3D](docs/capturas/05_3d_conducto_en_corte.png)
-![Secciones 3D](docs/capturas/06_3d_secciones.png)
+- **Simulación 2D y 3D en vivo.** El conducto célula a célula: reproducir, liberar terapias
+  (con nombres en español y combinables), operar, hacer una ablación, una biopsia o un
+  análisis de ctDNA, y hacer clic en una célula para ver su genoma. En 3D, el cilindro con
+  cámara libre y corte longitudinal.
+- **Laboratorio.** Diseña un experimento en cuatro pasos: pacientes (2D o 3D, tipo de
+  cáncer, cuántas, cuántos días), brazos de tratamiento (plantillas o intervención a
+  intervención: terapia el día X, cirugía, ablación guiada o en disco, vigilancia con ctDNA
+  y rescate automático, anti-PD-1, vasos, telómeros…), la biología (los 80 parámetros del
+  modelo, explicados y agrupados; opcional) y ejecutar en paralelo sin saturar el ordenador.
+  Devuelve gráficas comparativas, la evolución en el tiempo, una tabla por paciente con su
+  diario y CSV/JSON para analizar fuera. Cada experimento se guarda solo.
+- **Resultados, estudios y documentación**: las salidas de cada estudio publicado, el
+  catálogo de estudios con su comando, los avances, informes y la bitácora con buscador.
+
+| | |
+|---|---|
+| ![Inicio](docs/figures/app_home.jpg) **Inicio** | ![Simulación 2D](docs/figures/app_2d_simulation.jpg) **Simulación 2D en vivo** |
+| ![Simulación 3D](docs/figures/app_3d_simulation.jpg) **Simulación 3D** | ![Laboratorio](docs/figures/app_lab.jpg) **Laboratorio: diseño del experimento** |
+| ![Resultados del laboratorio](docs/figures/app_lab_results.jpg) **Laboratorio: resultados** | ![Resultados](docs/figures/app_results.jpg) **Resultados de los estudios publicados** |
+| ![Documentación](docs/figures/app_docs.jpg) **Documentación** | |
+
+## Instalación
+
+**Sin instalar nada (Windows):** descarga `BreastCancerABM.exe` de la página de
+[Releases](https://github.com/TheIsmael12/breast-cancer-abm/releases) y ábrelo con doble
+clic. Los experimentos del laboratorio se guardan en `Documentos/BreastCancerABM/lab`.
+
+**Con Python 3.11 o superior:**
+
+```bash
+git clone https://github.com/TheIsmael12/breast-cancer-abm
+cd breast-cancer-abm
+python -m venv .venv && .venv/Scripts/activate      # en Linux/macOS: source .venv/bin/activate
+pip install -e ".[app]"
+bcabm app                                           # la aplicación en su propia ventana
+```
+
+| Comando | Qué hace |
+|---|---|
+| `bcabm app` | la aplicación (`--browser` para abrirla en el navegador) |
+| `bcabm study --list` | los estudios publicados; `bcabm study <nombre> --help` para sus opciones |
+| `bcabm study no-surgery-3d --seeds 8 --processes 2` | ejemplo: reproducir el avance del 06-11 |
+| `bcabm study validation` | batería de validación contra la clínica (T1-T18) |
+| `bcabm viewer --scenario her2` | el visor clásico de matplotlib |
+| `bcabm figures` | regenera `docs/figures/` |
+| `python packaging/build.py` | construye el ejecutable (requiere `pip install -e ".[app,build]"`) |
+
+Como biblioteca:
+
+```python
+from breast_cancer_abm import Simulation, Parameters
+
+sim = Simulation("luminal", seed=1, params=Parameters(prob_neoantigen=0.1))
+for _ in range(120 * 4):          # 120 días, 4 pasos de 6 h por día
+    sim.step()
+print(sim.summary()["dangerous"])
+```
 
 ## Estructura del repositorio
 
 ```
-├── main.py, visor.py            visor interactivo (Play, O₂, clic en una célula)
-├── tejido.py, tejido3d.py       motor de la simulación (2D y 3D)
-├── biologia.py                  genes, escenarios, parámetros y calibraciones
-├── agentes.py, politicas.py     inmunidad y células terapéuticas programables
-├── validacion.py                tests T1-T18 contra datos clínicos
-├── tests/                       prueba de humo que pasa la CI en cada PR
-├── sin_cirugia.py, prueba_residuo.py, capturas.py   estudio 2026-11-05
-├── *.py                         un banco de pruebas por pregunta (tabla «Los programas»)
-├── datos/                       TCGA-BRCA descargado de cBioPortal
-├── resultados/AAAA-MM-DD/       salidas brutas de cada estudio
-├── .github/                     CI, plantillas de issues y de PR
+├── src/breast_cancer_abm/
+│   ├── model/         el motor: biología, agentes, terapias, tejido 2D y 3D, diseminación
+│   ├── studies/       un banco de pruebas por pregunta (bcabm study --list)
+│   ├── lab/           experimentos diseñados sin programar (el Laboratorio)
+│   ├── app/           la aplicación (NiceGUI): páginas, componentes 2D/3D, tema
+│   ├── viz/           visor de matplotlib y figuras de docs/figures
+│   ├── catalog.py     nombres y explicaciones en español de terapias y parámetros
+│   └── cli.py         el comando bcabm
+├── tests/             prueba de humo, huella exacta del modelo y laboratorio (CI en cada PR)
+├── data/              TCGA-BRCA descargado de cBioPortal
+├── results/AAAA-MM-DD/  salidas brutas y resumen de cada estudio publicado
+├── packaging/         construcción del ejecutable
 └── docs/
-    ├── avances/                 un documento por avance, con fuentes y limitaciones
-    ├── informes/                informes técnicos y hoja de ruta
-    ├── capturas/                imágenes generadas por capturas.py
-    └── BITACORA.md              registro cronológico completo
+    ├── progress/      un documento por avance, con fuentes y limitaciones
+    ├── reports/       informes técnicos y hoja de ruta
+    ├── figures/       imágenes (bcabm figures)
+    ├── LOGBOOK.md     registro cronológico completo
+    └── NAMING.md      equivalencia con los nombres antiguos en español
 ```
+
+El código va en inglés; la documentación, los comentarios y la aplicación, en español.
+`tests/test_fingerprint.py` comprueba que el modelo da **exactamente** los mismos números:
+la reorganización del 2026-11-16 se verificó con 32 simulaciones deterministas, idénticas
+antes y después.
 
 ## Cómo contribuir o citar
 
 Se aceptan *issues* y *pull requests*, sobre todo de personas con formación en biología
 o en oncología: correcciones de supuestos, datos mejores o nuevos tests de validación.
-Hay plantillas para cada caso y la CI comprueba cada PR (lint + prueba de humo).
+Hay plantillas para cada caso y la CI comprueba cada PR (ruff, prueba de humo y huella exacta del modelo).
 
 - **Guía:** [`CONTRIBUTING.md`](CONTRIBUTING.md) · **Código de conducta:** [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
 - **Debate abierto:** [Discussions](https://github.com/TheIsmael12/breast-cancer-abm/discussions)
@@ -77,16 +136,13 @@ sistema inmune, llena el conducto, se queda sin oxígeno, rompe la membrana e
 invade. Después sueltas células "inteligentes" programadas por ti para atacar o
 **reparar el error**, y comparas estrategias.
 
-```bash
-pip install -r requirements.txt
-python main.py                                  # ER+ esporádico (el más frecuente)
-python main.py --escenario brca1                # portadora de BRCA1
-python main.py --escenario her2 --terapia hibrido --dia-terapia 150
-python experimento.py --escenario brca1 --dia-terapia 10 --terapias ninguna centinela reparador
-```
+![El visor clásico](docs/figures/02_day_120_tumor.png)
 
-En la ventana: **Play/Pausa**, **Paso (6 h)**, **Reiniciar**, **Oxígeno** (mapa de O₂),
-elige una terapia y pulsa **Liberar terapia**. Haz **clic en una célula** para ver su genoma.
+**En 3D** (`model/tissue3d.py`) se ve el muro que frena a casi todas las terapias: las células
+terapéuticas (estrellas) se quedan en la superficie y el núcleo es inaccesible. La
+fracción accesible del tumor cae del 82 % al 33 % al crecer.
+
+![El conducto en 3D](docs/figures/05_3d_duct_cutaway.png)
 
 ## ¿Cuál es "el bug"? Lo que dice la ciencia
 
@@ -194,7 +250,7 @@ modelo para estudiar prevención**: si cada célula muta lo bastante rápido, cu
 acaba produciendo un tumor hagas lo que hagas. No se arregla tocando el estrógeno; habría
 que recalibrar la tasa de mutación contra la incidencia real.
 
-Queda como **T14** en `validacion.py`, fallando a la vista, para que el límite no se
+Queda como **T14** en `studies/validation.py`, fallando a la vista, para que el límite no se
 olvide. De las tres propiedades reales de la hormonoterapia, el modelo reproduce dos
 (inútil en solitario, el riesgo vuelve al retirarla) y **falla la tercera**.
 
@@ -234,7 +290,7 @@ Dos reescrituras seguidas, por dos motivos distintos:
 
 - **2026-10-20**: las tablas estaban medidas en un modelo **sin barrera física**. Al añadir
   la presión intersticial y la malla desmoplásica, buena parte dejó de sostenerse.
-  Detalle en `docs/informes/INFORME_BARRERA.md`.
+  Detalle en `docs/reports/BARRIER.md`.
 - **2026-10-21**: el proyecto se llamaba "células terapéuticas programables" porque la idea
   era **curar la célula madre tumoral y reprogramarla**. Ese brazo se ha medido a fondo y
   **no funciona** — ver *Curar reprogramando: acta de defunción*. Lo que sostiene el
@@ -249,10 +305,10 @@ quede constancia de por dónde empezó la idea y por qué cambió.
 Es un modelo educativo escrito a mano. Cuando "descubre" algo, está desplegando las
 suposiciones de quien lo escribió, no descubriendo biología. Ejemplo real de esta casa:
 el modelo reprodujo el fracaso clínico de eliminar los CAFs... porque dos horas antes se
-había programado `contencion_matriz = 0.8`. No fue un hallazgo, fue un eco.
+había programado `matrix_containment = 0.8`. No fue un hallazgo, fue un eco.
 
 La regla que vale: **un resultado solo cuenta si sobrevive a cambiar la suposición que lo
-produce.** De ahí los barridos de sensibilidad (`reversion.py`, `--plasticidad`).
+produce.** De ahí los barridos de sensibilidad (`studies/reversion.py`, `--plasticity`).
 
 Y un aviso de método que costó un día entero: **la varianza entre semillas domina al
 tratamiento.** La misma configuración da 976 o 10.487 peligrosas. Ninguna media de 3
@@ -270,7 +326,7 @@ distintas, y confundirlas lleva a atacar la equivocada:
 | Oxígeno | difunde ~100-150 µm desde un capilar: el centro está lejos | acercar vasos ("reconducir") |
 
 La presión es **corriente en contra**, no una pared: en el modelo solo frena a quien
-intenta ENTRAR (`Simulacion._frena_la_presion`); salir es gratis.
+intenta ENTRAR (`Simulation._blocked_by_pressure`); salir es gratis.
 
 **El número que lo decide.** Mismo tumor, mismo anti-CD47, misma biología:
 
@@ -288,16 +344,16 @@ hialurónico. El HA es un gel que retiene agua: de ahí sale la presión. La **L
 entrecruza el colágeno y lo tensa. Y hay un bucle que la mantiene sola: la rigidez que
 fabrica el CAF activa más CAFs por mecanotransducción (YAP/TAZ, Calvo 2013).
 
-`tratar_matriz()` separa las cinco formas de atacarla, porque **no son equivalentes**:
+`treat_matrix()` separa las cinco formas de atacarla, porque **no son equivalentes**:
 
 ```bash
-python malla.py --semillas 3   # hialuronidasa · anti_lox · losartan · anti_tgfb · matar_caf
+bcabm study mesh --seeds 3   # hialuronidasa · anti_lox · losartan · anti_tgfb · matar_caf
 ```
 
 | intervención | peligrosas | invasivas | fagocitosis |
 |---|---|---|---|
 | ninguna | 10.387 | 8.701 | 0 |
-| `matar_caf` | **10.856** | 9.117 | 0 |
+| `kill_caf` | **10.856** | 9.117 | 0 |
 | `anti_lox` | 10.356 | 8.631 | 0 |
 
 **Ninguna abre el acceso.** Y matar los CAFs sale peor que no hacer nada, porque la malla
@@ -312,13 +368,13 @@ y después. Ese 26 % es **geometría pura**, no presión.
 El tumor recluta monocitos activamente (CCL2) y les abre el endotelio. Un vehículo así no
 nada contra la corriente: **lo llevan**. Al verse rodeado de tumor, suelta la carga dentro.
 Real: CAR-M en ensayo clínico, células madre mesenquimales como vehículo.
-Ver `troyano`, `troya` y `castrador` en `politicas.py`.
+Ver `trojan`, `trojan_horse` y `sterilizer` en `model/policies.py`.
 
 | estrategia | peligrosas | reinas | por semilla |
 |---|---|---|---|
 | nada | 7.637 | 1.896 | 2.122 · 10.377 · 10.413 |
-| `guardiana_nicho+memoria` | 6.932 | 1.540 | 10 · 10.376 · 10.410 |
-| **`troyano+guardiana_nicho+memoria`** (dosis 300) | **6.651** | **826** | **3 · 9.922 · 10.029** |
+| `niche_guardian+memory` | 6.932 | 1.540 | 10 · 10.376 · 10.410 |
+| **`trojan+niche_guardian+memory`** (dosis 300) | **6.651** | **826** | **3 · 9.922 · 10.029** |
 
 El vehículo **reduce las reinas a la mitad** y es lo único que ha movido las semillas
 grandes. La dosis importa y satura: 40 → 940 peligrosas, 120 → 9, 300 → 5.
@@ -355,7 +411,7 @@ reparaciones génicas ........... 3.520
 ```
 
 El mecanismo que da nombre a la estrategia se come **cinco células**. Lo que funciona es
-matar y editar. Por eso `reversion.py` salió plano: da igual que el estado reprogramado
+matar y editar. Por eso `studies/reversion.py` salió plano: da igual que el estado reprogramado
 dure para siempre o cinco días, porque el estado es irrelevante.
 
 ## Curar reprogramando: acta de defunción
@@ -364,9 +420,9 @@ El brazo central del proyecto —arreglar el gen malo para que la célula vuelva
 buena— se ha atacado por tres caminos independientes. Los tres fallan, y **por la misma
 razón**.
 
-**Primero hubo que medir.** El contador `reparaciones` mezclaba tres mecanismos distintos
-y escondía en qué acababa cada edición. Separado (`reparaciones_que_curan` /
-`_p53_letales` / `_esteriles`):
+**Primero hubo que medir.** El contador `repairs` mezclaba tres mecanismos distintos
+y escondía en qué acababa cada edición. Separado (`repairs_that_cure` /
+`_p53_lethal` / `_sterile`):
 
 ```
 reparaciones estériles (gen corregido, sigue tumoral) .... 91,2 %
@@ -393,7 +449,7 @@ Las guardianas se multiplican por 2,65 y **el tumor sale igual o peor**: empeora
 semillas y casi duplica en la grande.
 
 **Por último se le dio el mecanismo más potente del repertorio**, el efecto espectador de
-la corrección (`propagacion_correccion`): una célula corregida corrige a sus vecinas, y
+la corrección (`correction_spread`): una célula corregida corrige a sus vecinas, y
 éstas a las suyas. Coste que no crece con el número de células.
 
 | brazo | propagadas | corregidas del todo | peligrosas (semilla grande) |
@@ -414,7 +470,7 @@ de 4 brazos**, entre 2,2× y 2,8×.
 
 Las tres vías comparten el mismo mecanismo, y está en el código: convertir una tumoral en
 "curada" la **saca de la lista de dianas**, pero la célula conserva la aneuploidía
-(`tejido.py:398`) y puede volver a mutar sin ninguna protección. Estamos fabricando
+(`model/tissue.py`) y puede volver a mutar sin ninguna protección. Estamos fabricando
 células que nadie vigila y que se rompen otra vez. Cuanto más grande el tumor, más caro
 sale.
 
@@ -433,13 +489,13 @@ cerrar la fuente.
 
 Si la cura no viene de reparar, viene de matar. Pero matar sin cerrar la fuente ya sabemos
 que no basta. En el modelo la fuente de reinas tiene **tres grifos**, y cada uno tiene su
-llave (`tejido.py:262-278`):
+llave (`model/tissue.py`):
 
 | grifo | cómo se cierra | ¿existe en la realidad? |
 |---|---|---|
 | reinas que se dividen | matándolas | sí — CAR-T persistentes |
-| plasticidad, **×3 con hipoxia** | oxigenando (`reconducir`) | sí — normalización vascular |
-| **SASP**: una senescente empuja a su vecina a desdiferenciarse | `farmaco_anti_sasp` | sí — inhibidores JAK (ruxolitinib) |
+| plasticidad, **×3 con hipoxia** | oxigenando (`reroute`) | sí — normalización vascular |
+| **SASP**: una senescente empuja a su vecina a desdiferenciarse | `drug_anti_sasp` | sí — inhibidores JAK (ruxolitinib) |
 
 **El SASP explica por fin el enriquecimiento en reinas.** Es un efecto condicional, y por
 eso costó verlo: en el brazo que mata hay 18 senescentes y el término no se activa ni una
@@ -463,7 +519,7 @@ frente a 6.625 peligrosas, y por semilla es ruido).
 
 ### La bifurcación
 
-A 500 días, añadir `reconducir` al brazo matador parte el resultado en dos:
+A 500 días, añadir `reroute` al brazo matador parte el resultado en dos:
 
 ```
 solo matar:          9913 ·  1 · 8692 ·  5608 ·  9906 ·  9718 · 9996
@@ -490,14 +546,14 @@ desenlace**. No es que no hayamos encontrado el biomarcador: es que no puede exi
 Validación fuera de muestra (semillas 8-14): **cero rescates**; en 6 de 7 el tumor nunca
 llegó a ser hipóxico y reconducir no hizo literalmente nada (trayectorias idénticas).
 
-**Qué es `reconducir` en realidad**, con números: no es "quitar la hipoxia = bueno", es un
+**Qué es `reroute` en realidad**, con números: no es "quitar la hipoxia = bueno", es un
 intercambio cuantificado.
 
 | efecto | dónde | signo |
 |---|---|---|
-| ×6,7 velocidad de división | `tejido.py:321` (`pdiv *= 0.15` si hipóxica) | malo |
-| ÷3 fabricación de reinas | `tejido.py:273` (plasticidad ×3 si hipóxica) | bueno |
-| sin motivo para angiogénesis | `tejido.py:314` | bueno |
+| ×6,7 velocidad de división | `model/tissue.py` (`pdiv *= 0.15` si hipóxica) | malo |
+| ÷3 fabricación de reinas | `model/tissue.py` (plasticidad ×3 si hipóxica) | bueno |
+| sin motivo para angiogénesis | `model/tissue.py` | bueno |
 
 Las dos fuerzas son grandes y se deciden cerca de la frontera. Cerca de la frontera, el
 sistema es caótico.
@@ -510,7 +566,7 @@ modelo por agentes— pero es lo contrario de un hallazgo clínico.
 ### Lo que sí quedó en pie, y cambia la estrategia
 
 **1. La enfermedad residual controlada es compartimento madre puro.** En los nueve finales
-controlados, `peligrosas == reinas` exactamente (12=12, 9=9, 19=19, 4=4...). Lo que
+controlados, `dangerous == queens` exactamente (12=12, 9=9, 19=19, 4=4...). Lo que
 sobrevive al tratamiento son reinas, y sólo reinas.
 
 **2. Llegar a cero reinas NO es absorbente.** En una corrida el sistema estuvo **90 días
@@ -519,7 +575,7 @@ desdiferenciaciones siguieron subiendo durante esa ventana (cada reina nueva nac
 obrera y la mataban, en equilibrio) hasta que una escapó.
 
 Esto **invierte la estrategia del proyecto**. Durante tres días la idea fue *mata la
-reina, que es la fuente*. Pero mientras quede una obrera, la plasticidad (`tejido.py:273`)
+reina, que es la fuente*. Pero mientras quede una obrera, la plasticidad (`model/tissue.py`)
 rehace la reina. El punto de no retorno, si existe, es **vaciar el depósito de obreras**,
 no erradicar las reinas.
 
@@ -540,7 +596,7 @@ Mientras el tratamiento mata, la fuente sigue fabricando reinas a ritmo crecient
 
 Y el momento del escape tiene explicación mecánica: la oleada terapéutica es **transitoria**
 (el troyano vive 400 pasos, la guardiana 500; a partir del día ~340 sólo quedan los 300
-agentes permanentes de `memoria`), y justo entonces el tumor **se arregla su propia hipoxia
+agentes permanentes de `memory`), y justo entonces el tumor **se arregla su propia hipoxia
 construyendo vasos**. El O₂ medio sube *antes* del despegue: 0,236 → 0,275 → **0,430** →
 0,49, y las peligrosas detrás: 324 → 335 → **672** → 1.606.
 
@@ -570,7 +626,7 @@ no fue el tratamiento: fue el tamaño del tumor el día que se empezó.
 ## Extirpar primero rompe el techo — y qué es en realidad esa cirugía
 
 Cuando se levantó el veto a la cirugía (2026-10-22) apareció el mejor resultado del
-proyecto. Protocolo: `resecar(0.95, 2)` el día 120 → `troyano+guardiana_nicho+memoria`
+proyecto. Protocolo: `resect(0.95, 2)` el día 120 → `trojan+niche_guardian+memory`
 → reconducir vasos. 8 semillas, 500 días:
 
 | brazo | erradica | controlado | finales |
@@ -590,12 +646,12 @@ contra un residuo de 0-15. Es el esquema clínico estándar de los últimos cien
 | | medido |
 |---|---|
 | arco del anillo ductal ocupado por el tumor | **90 %**, en 5 componentes conexas |
-| conducto extirpado por `resecar(0.95, 2)` a 400 células | **93 %** |
+| conducto extirpado por `resect(0.95, 2)` a 400 células | **93 %** |
 | conducto extirpado el día 120 (el protocolo de arriba) | **96 %** |
 | censo del campo | 1.251 células = 188 luminales + 224 mioepiteliales + 839 fibroblastos |
 
 Como el tumor **rodea** la luz, el centroide del disco cae en el centro del conducto y el
-corte (radio ~28 celdas) engloba el conducto entero (radio 22). Así que `resecar()` **no
+corte (radio ~28 celdas) engloba el conducto entero (radio 22). Así que `resect()` **no
 es una tumorectomía en ninguna configuración: es la resección completa del único órgano
 del campo**. Y el precio que se anotó entonces —*«210 células sanas, ~1,7 % de un conducto
 de ~12.000»*— comparaba células del modelo contra un conducto humano real: el conducto de
@@ -618,7 +674,7 @@ contrastable. Lo que sí lo es: una **razón** entre dos brazos del propio model
 
 `T18` mide el peso del margen con 42 semillas nuevas y criterio escrito antes:
 
-| margen tras `resecar(0.95, 2)` | n | recaída |
+| margen tras `resect(0.95, 2)` | n | recaída |
 |---|---|---|
 | **negativo** (residuo 0) | 23 | **0 %** |
 | **positivo** (residuo > 0) | 19 | **32 %** |
@@ -655,7 +711,7 @@ Tres causas, y la tercera es la que este proyecto reproduce sin querer:
 
 ## El cementerio: once barreras, dos resueltas
 
-Detalle completo en **`docs/informes/INFORME_CEMENTERIO.md`**. Lo imprescindible:
+Detalle completo en **`docs/reports/GRAVEYARD.md`**. Lo imprescindible:
 
 De once barreras identificadas en tres décadas de ensayos, **sólo dos están resueltas**, y
 las dos las resolvió la misma tecnología (ADC con payload permeable) por el mismo
@@ -676,7 +732,7 @@ arsenal citotóxico presupone proliferación.
 Y lo que nos toca de cerca: **atacar «la reina» ya se intentó y está muerto**. Notch, Wnt y
 Hedgehog murieron porque la diana es compartida con la célula madre normal
 (vantictumab e ipafricept: fracturas óseas). Es el mismo muro que encontró
-`identificadores.py` por su cuenta.
+`studies/identifiers.py` por su cuenta.
 
 ## Las preguntas para un laboratorio
 
@@ -703,43 +759,42 @@ Conviene tenerlo junto y en una lista, porque es más largo que la de los aciert
   peor que no hacer nada.
 - **Curar un tumor grande.** Por encima de ~4.000 células el día del tratamiento, nada ha
   funcionado nunca (3 de 3, con ocho estrategias distintas).
-- **Un predictor de quién responde.** La bifurcación de `reconducir` no se explica por
+- **Un predictor de quién responde.** La bifurcación de `reroute` no se explica por
   nada medible el día de intervenir.
 
 Lo que sí hay: un vehículo que entra (troyano), una puerta Y que no toca tejido sano
 (0 sanas comidas en todos los brazos probados, incluido el de 4.665 fagocitosis), y un
 mecanismo nuevo con antídoto real (SASP → stemness → inhibidores JAK).
 
-## Los programas
+## Los estudios
 
-| | qué hace |
+Cada uno responde una pregunta con su criterio escrito antes de ejecutar. Se lanzan con
+`bcabm study <nombre>` (la lista completa, con su descripción, en `bcabm study --list` o en la
+página **Estudios** de la aplicación).
+
+| Estudio | Pregunta |
 |---|---|
-| `main.py` | visor con Play, mapa de O₂, clic en una célula para ver su genoma |
-| `experimento.py` | banco de pruebas sin ventana: compara terapias con varias semillas |
-| `tejido3d.py` | versión 3D (cilindro, 26 vecinos). Sin malla: solo presión y geometría |
-| `datos_reales.py` | contraste con ~1.000 pacientes reales de TCGA vía cBioPortal |
-| `identificadores.py` | ¿qué marcador identifica al tumor y solo a él? → `docs/informes/INFORME_IDENTIFICADORES.md` |
-| `puertas.py` | sensibilidad y especificidad de cada puerta lógica, como un test diagnóstico |
-| `barrera.py` | acceso en 3D: geometría, presión y oxígeno por separado |
-| `malla.py` | las cinco formas de atacar la malla: ¿abren el paso sin soltar al tumor? |
-| `cadena.py` | la secuencia completa: abrir · desenmascarar · castrar · comer · cerrar la fuente |
-| `reversion.py` | ¿cuánto tiene que durar un estado celular impuesto para que valga? |
-| `propagacion.py` | corrección con efecto espectador: ¿cuánta fidelidad necesita la edición? |
-| `sin_cirugia.py` | ¿se puede tratar sin operar? Cirugía, ablación, biopsia y ctDNA como puertas de decisión |
-| `prueba_residuo.py` | ¿quién conserva tumor? Biopsia por vacío frente a ctDNA |
-| `capturas.py` | regenera las imágenes de `docs/capturas/` sin abrir ventana |
+| `no-surgery`, `no-surgery-3d` | ¿se puede tratar sin operar? Cirugía, ablación, biopsia y ctDNA como puertas de decisión |
+| `residual-test` | ¿quién conserva tumor? Biopsia por vacío frente a ctDNA |
+| `experiment` | compara terapias con varias semillas |
+| `chain` | la secuencia completa: abrir · desenmascarar · castrar · comer · cerrar la fuente |
+| `propagation`, `reversion`, `residual` | corrección que se propaga, cuánto dura un estado impuesto, pelear por el residuo |
+| `gates`, `identifiers`, `real-data` | ¿qué identifica al tumor y solo a él? Contraste con ~1.000 pacientes de TCGA |
+| `barrier`, `mesh`, `tissue3d` | acceso al tumor en 3D: geometría, presión, oxígeno y la malla |
+| `dissemination` | células que escapan a la médula antes de operar |
+| `validation` | batería T1-T18 contra resultados clínicos |
 
 ## Programa tu propia célula
 
-Edita `mi_celula.py` y elige **mi_celula** en la ventana. Reglas realistas:
+Edita `src/breast_cancer_abm/model/my_cell.py` y elige **Mi célula (programable)** en la aplicación. Reglas realistas:
 
 - Tu célula **no lee el ADN**. Solo ve la superficie: MHC-I, neoantígenos, PD-L1,
   HER2, ligandos de estrés, proliferación (Ki-67), hipoxia, y siente quimiocinas.
 - Para conocer el genoma debe **Analizar** (secuenciar), y eso cuesta un turno.
-- **Reparar** solo funciona con los genes de sus `vectores`, gasta `carga` y falla
+- **Reparar** solo funciona con los genes de sus `vectors`, gasta `payload` y falla
   el 40 % de las veces (eficacia realista de la edición génica, aún optimista).
-- **Atacar** depende de sus `receptores`: `TCR` (necesita MHC-I y es frenado por
-  PD-L1 salvo `resistente_pdl1`), `NK`, `HER2` (CAR-T) o `INESPECIFICO` (mata también sanas).
+- **Atacar** depende de sus `receptors`: `TCR` (necesita MHC-I y es frenado por
+  PD-L1 salvo `pdl1_resistant`), `NK`, `HER2` (CAR-T) o `NONSPECIFIC` (mata también sanas).
 
 ## Lo que este simulador NO es
 

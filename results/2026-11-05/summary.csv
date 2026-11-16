@@ -1,0 +1,20 @@
+arm,controlled,eradicated,healthy_destroyed,breast_untouched,n,rate_after_treatment,file
+Cirugía + arsenal (referencia),24,13,324,0,24,accelerated,01_no_surgery.txt
+Solo arsenal,20,0,0,24,24,accelerated,01_no_surgery.txt
+Ablación en disco + arsenal,24,13,324,0,24,accelerated,01_no_surgery.txt
+Biopsia → ablación si positiva,23,4,0,20,24,accelerated,02_biopsy_ctdna_gates.txt
+Biopsia + ctDNA mensual + ablación en disco,24,16,314,0,24,accelerated,02_biopsy_ctdna_gates.txt
+ctDNA mensual + ablación en disco,24,15,292,2,24,accelerated,02_biopsy_ctdna_gates.txt
+ctDNA mensual + ablación guiada,24,3,14,2,24,accelerated,03_guided_realistic_rate.txt
+REALISTA: solo arsenal,23,4,0,24,24,realistic,03_guided_realistic_rate.txt
+REALISTA: ctDNA + ablación en disco,24,17,285,6,24,realistic,03_guided_realistic_rate.txt
+REALISTA: ctDNA + ablación guiada,24,12,8,6,24,realistic,03_guided_realistic_rate.txt
+IMAGEN ≥5 células: ctDNA + guiada,24,5,0,18,24,realistic,04_imaging_threshold.txt
+IMAGEN ≥25 células: ctDNA + guiada,24,4,0,20,24,realistic,04_imaging_threshold.txt
+IMAGEN ≥100 células: ctDNA + guiada,24,4,0,22,24,realistic,04_imaging_threshold.txt
+IMAGEN ciega: ctDNA → solo arsenal,23,4,0,24,24,realistic,04_imaging_threshold.txt
+3D: nada,0,0,0,8,8,realistic,05_no_surgery_3d.txt
+3D: solo arsenal,0,0,0,8,8,realistic,05_no_surgery_3d.txt
+3D: ablación en disco + arsenal,4,0,8763,0,8,realistic,05_no_surgery_3d.txt
+3D: ctDNA mensual + ablación guiada,8,2,3800,0,8,realistic,05_no_surgery_3d.txt
+3D: ctDNA mensual + ablación en disco,1,0,5980,0,8,realistic,05_no_surgery_3d.txt

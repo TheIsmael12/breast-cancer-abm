@@ -5,4 +5,11 @@ venv/
 .idea/
 .vscode/
 *.log
-resultados/cache_3d/
+results/cache_3d/
+.ruff_cache/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.nicegui/
+results/lab/

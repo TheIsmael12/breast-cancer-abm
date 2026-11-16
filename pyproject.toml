@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "breast-cancer-abm"
+version = "1.0.0"
+description = "Simulador por agentes de cáncer de mama y células terapéuticas programables"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+authors = [
+    { name = "Claude (Anthropic)" },
+    { name = "Ismael Ben" },
+]
+keywords = ["agent-based model", "breast cancer", "simulation", "immunotherapy", "ctDNA"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Education",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+dependencies = [
+    "numpy>=1.26",
+    "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+app = [
+    "nicegui>=3.0",
+    "pywebview>=5.0",
+]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+]
+build = [
+    "pyinstaller>=6.10",
+]
+
+[project.scripts]
+bcabm = "breast_cancer_abm.cli:main"
+
+[project.urls]
+Repository = "https://github.com/TheIsmael12/breast-cancer-abm"
+Issues = "https://github.com/TheIsmael12/breast-cancer-abm/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+breast_cancer_abm = ["app/static/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+# Errores reales (pyflakes) y sintaxis; el estilo del modelo es compacto a propósito.
+select = ["F", "E9", "I"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["breast_cancer_abm"]
